@@ -97,17 +97,25 @@ namespace RecordFCS_Alt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Crear([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
+            
+
             if (ModelState.IsValid)
             {
                 tipoPieza.TipoPiezaID = Guid.NewGuid();
                 db.TipoPiezas.Add(tipoPieza);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                AlertaSuccess(string.Format("Tipo de Pieza: <b>{0}</b> creada.", tipoPieza.Nombre), true);
+
+                //ptincipal true enviar tipoobraid
+                
+
+                string url = Url.Action("Lista", "TipoPieza");
+                return Json(new { success = true, url = url });
+
             }
 
-            ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", tipoPieza.TipoObraID);
-            ViewBag.TipoPiezaPadreID = new SelectList(db.TipoPiezas, "TipoPiezaID", "Nombre", tipoPieza.TipoPiezaPadreID);
-            return View(tipoPieza);
+            return PartialView("_Crear", tipoPieza);
         }
 
         // GET: TipoPieza/Edit/5
@@ -170,6 +178,36 @@ namespace RecordFCS_Alt.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        public JsonResult EsUnico(string Nombre, Guid? TipoPiezaID, Guid? TipoObraID, Guid? TipoPiezaPadreID)
+        {
+            bool x = false;
+
+            TipoObra tipoObra = db.TipoObras.Find(TipoObraID);
+            if (tipoObra != null)
+            {
+                if (TipoPiezaPadreID == null)
+                {
+                    //creando una pieza en el root
+                    var tpEnRoot = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
+                    //crear y/o actualizar
+                    x = tpEnRoot == null ? true : tpEnRoot.TipoPiezaID == TipoPiezaID ? true : false;
+                }
+                else
+                {
+                    //creando una pieza en el padre
+                    var tpEnPadre = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
+                    //crear y/o actualizar
+                    x = tpEnPadre == null ? true : tpEnPadre.TipoPiezaID == TipoPiezaID ? true : false;
+
+                }
+            }
+
+
+            return Json(x);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

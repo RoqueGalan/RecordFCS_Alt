@@ -1,6 +1,7 @@
 ﻿$(function () {
     $.ajaxSetup({ cache: false });
     $("a[data-modal].openModal_TipoPieza").on("click", function (e) {
+        alert("tipoPieza");
 
         $('#miModalContenido').load(this.href, function () {
             $('#miModal').modal({

@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
-    public class TipoPieza
+    [MetadataType(typeof(TipoPiezaMetadata))]
+    public partial class TipoPieza
     {
         [Key]
         public Guid TipoPiezaID { get; set; }
@@ -17,7 +19,7 @@ namespace RecordFCS_Alt.Models
         public int Orden { get; set; }
         public bool EsPrincipal { get; set; }
         public bool Status { get; set; }
-        
+
         //Llaves Foraneas
         [ForeignKey("TipoObra")]
         public Guid TipoObraID { get; set; }
@@ -37,6 +39,38 @@ namespace RecordFCS_Alt.Models
 
         public virtual TipoPieza TipoPiezaPadre { get; set; }
         public virtual ICollection<TipoPieza> TipoPiezasHijas { get; set; }
+
+
+    }
+
+
+
+    public partial class TipoPiezaMetadata
+    {
+        public Guid TipoPiezaID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
+        [StringLength(64)]
+        [Display(Name = "Tipo de Pieza")]
+        [Remote("EsUnico", "TipoPieza", HttpMethod = "POST", AdditionalFields = "TipoPiezaID,TipoObraID,TipoPiezaPadreID", ErrorMessage = "Ya existe, intenta otro nombre.")]
+        public string Nombre { get; set; }
+
+        [StringLength(128)]
+        [Display(Name = "Descripción")]
+        public string Descripcion { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
+        public string Prefijo { get; set; }
+
+        [Required(ErrorMessage = "Requerido.")]
+        public int Orden { get; set; }
+
+        [Display(Name = "Estado")]
+        public bool Status { get; set; }
+
+        public Guid TipoObraID { get; set; }
+        public Guid? TipoPiezaPadreID { get; set; }
+
 
 
     }

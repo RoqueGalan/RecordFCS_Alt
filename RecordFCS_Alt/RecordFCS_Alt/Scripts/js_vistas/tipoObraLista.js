@@ -1,7 +1,7 @@
 ﻿$(function () {
     $.ajaxSetup({ cache: false });
     $("a[data-modal].openModal_TipoObra").on("click", function (e) {
-
+        alert("tipoObra");
         $('#miModalContenido').load(this.href, function () {
             $('#miModal').modal({
                 backdrop: 'static',

@@ -207,6 +207,7 @@
     <Content Include="Views\TipoPieza\Detalles.cshtml" />
     <Content Include="Views\TipoPieza\_Editar.cshtml" />
     <Content Include="Views\TipoPieza\_Lista.cshtml" />
+    <Content Include="Views\TipoPieza\_ListaHija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
