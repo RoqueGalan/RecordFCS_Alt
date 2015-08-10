@@ -1,30 +1,58 @@
 ﻿@model RecordFCS_Alt.Models.TipoPieza
+@using RecordFCS_Alt.Helpers
+
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.PagName = "CONFIGURACIÓN";
+    ViewBag.CtrlName = "Tipo de Pieza";
+    ViewBag.Title = @ViewBag.PagName + " - " + @Model.Nombre;
 }
+<h2>
+    @ViewBag.PagName
+    <i class="text-muted">@ViewBag.CtrlName</i>
+    <small class="text-danger">@Model.Nombre</small>
 
-<h2>Details</h2>
+</h2>
+
+<ol class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Tipos de Obra", "Index", "TipoObra")</li>
+    <li>@Html.ActionLink(Model.TipoObra.Nombre, "Detalles", "TipoObra", new { id = Model.TipoObraID }, null)</li>
+
+    @{
+        var siguiente = Model.TipoPiezaPadre;
+        var listaLink = new List<RecordFCS_Alt.Models.TipoPieza>();
+
+        while (siguiente != null)
+        {
+            listaLink.Add(siguiente);
+            siguiente = siguiente.TipoPiezaPadre;
+        }
+
+        listaLink = listaLink.Reverse<RecordFCS_Alt.Models.TipoPieza>().ToList();
+    }
+
+    @foreach (var item in listaLink)
+    {
+        <li>@Html.ActionLink(item.Nombre, "Detalles", "TipoPieza", new { id = item.TipoPiezaID }, null)</li>
+    }
+
+    <li class="active">@Model.Nombre</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
 
 <div>
-    <h4>TipoPieza</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoObra.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoObra.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoPiezaPadre.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoPiezaPadre.Nombre)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -43,30 +71,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Prefijo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Prefijo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Orden)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Orden)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EsPrincipal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EsPrincipal)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
 
@@ -74,17 +78,21 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Temp)
-        </dt>
-
+        <dt>Acciones</dt>
         <dd>
-            @Html.DisplayFor(model => model.Temp)
+            @Html.NoEncodeActionLink("<span class='fa fa-pencil'></span>", "Editar", "Editar", "TipoPieza", routeValues: new { id = Model.TipoPiezaID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-default btn-xs openModal_TipoPieza" })
         </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoPiezaID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div id="renderListaAtributos"></div>
+
+
+<h4 class="text-center"><b>Tipos de Piezas para @Html.DisplayFor(model => model.Nombre)</b></h4>
+
+<div id="renderListaTipoPiezas">
+    @{ Html.RenderAction("Lista", "TipoPieza", new { id = Model.TipoPiezaID }); }
+</div>
+
+
+<script src="~/Scripts/js_vistas/tipoPiezaLista.js"></script>

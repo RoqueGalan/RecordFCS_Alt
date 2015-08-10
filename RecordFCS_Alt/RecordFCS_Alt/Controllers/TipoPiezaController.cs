@@ -22,26 +22,43 @@ namespace RecordFCS_Alt.Controllers
 
         // GET: TipoPieza
         //root = true --> mostrar lista de piezas maestras
-        public ActionResult Lista(Guid? id)
+        public ActionResult Lista(Guid? id, bool esRoot = false)
         {
-            if (id == null) new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            TipoObra tipoObra = db.TipoObras.Find(id);
+            //id = TipoPiezaID
+            IEnumerable<TipoPieza> lista = null;
 
-            if (tipoObra == null) HttpNotFound();
+            if (esRoot)
+            {
+                TipoObra tipoObra = db.TipoObras.Find(id);
+                if (tipoObra == null) return HttpNotFound();
 
-            var lista = db.TipoPiezas.Where(a => a.TipoObraID == id && a.TipoPiezaPadreID == null).OrderBy(a => a.Orden);
+                lista = tipoObra.TipoPiezas.Where(a => a.EsPrincipal).OrderBy(a => a.Orden);
+
+            }
+            else
+            {
+                TipoPieza tipoPiezaPadre = db.TipoPiezas.Find(id);
+                if (tipoPiezaPadre == null) return HttpNotFound();
+
+                lista = tipoPiezaPadre.TipoPiezasHijas.OrderBy(a => a.Orden);
+
+                ViewBag.nombre = tipoPiezaPadre.Nombre;
+
+            }
 
 
             ViewBag.totalRegistros = lista.Count();
             ViewBag.id = id;
-            ViewBag.nombre = tipoObra.Nombre;
+            ViewBag.root = esRoot;
+
 
             return PartialView("_Lista", lista.ToList());
         }
 
         // GET: TipoPieza/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Detalles(Guid? id)
         {
             if (id == null)
             {
@@ -97,7 +114,7 @@ namespace RecordFCS_Alt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Crear([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
-            
+
 
             if (ModelState.IsValid)
             {
@@ -108,7 +125,7 @@ namespace RecordFCS_Alt.Controllers
                 AlertaSuccess(string.Format("Tipo de Pieza: <b>{0}</b> creada.", tipoPieza.Nombre), true);
 
                 //ptincipal true enviar tipoobraid
-                
+
 
                 string url = Url.Action("Lista", "TipoPieza");
                 return Json(new { success = true, url = url });

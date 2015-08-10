@@ -41,6 +41,7 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(tipoObra);
         }
 
@@ -77,7 +78,7 @@ namespace RecordFCS_Alt.Controllers
                 {
                     TipoPiezaID = Guid.NewGuid(),
                     TipoObraID = tipoObra.TipoObraID,
-                    Nombre = tipoObra.Nombre,
+                    Nombre = "Principal",
                     Prefijo = "A",
                     Orden = 1,
                     Descripcion = "Pieza principal de la Obra",
@@ -88,7 +89,7 @@ namespace RecordFCS_Alt.Controllers
                 db.TipoPiezas.Add(tipoPieza);
                 db.SaveChanges();
 
-                AlertaSuccess(string.Format("Tipo de Pieza Principal: <b>{0}</b> creada.", tipoPieza.Nombre), true);
+                AlertaSuccess(string.Format("Tipo de Pieza : <b>{0}</b> creada.", tipoPieza.Nombre), true);
 
                 string url = Url.Action("Lista", "TipoObra");
                 return Json(new { success = true, url = url });

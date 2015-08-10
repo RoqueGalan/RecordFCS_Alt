@@ -29,7 +29,7 @@
             </td>
 
             <td>
-                @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Ver Tipo de Piezas de " + item.Nombre, "Detalles", "TipoObra", routeValues: new { id = item.TipoObraID, root = true }, htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
+                @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Configurar Tipo de Obra " + item.Nombre, "Detalles", "TipoObra", routeValues: new { id = item.TipoObraID}, htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
                 @Html.NoEncodeActionLink("<span class='fa fa-pencil'></span>", "Editar " + item.Nombre, "Editar", "TipoObra", routeValues: new { id = item.TipoObraID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-default btn-xs openModal_TipoObra" })
                 @Html.NoEncodeActionLink("<span class='fa fa-trash'></span>", "Eliminar " + item.Nombre, "Eliminar", "TipoObra", routeValues: new { id = item.TipoObraID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-danger btn-xs openModal_TipoObra" })
             </td>

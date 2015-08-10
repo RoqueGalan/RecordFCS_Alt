@@ -8,18 +8,17 @@
 }
 
 
-<h1>
-    <b>@ViewBag.PagName</b>
+<h2>
+    @ViewBag.PagName
     <i class="text-muted">@ViewBag.CtrlName</i>
     <small class="text-danger">@Model.Nombre</small>
 
-</h1>
+</h2>
 
 <ol class="breadcrumb">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Tipos de Obra", "Index", "TipoObra")</li>
     <li class="active">@Model.Nombre</li>
-    <li class="active">@ViewBag.PagName</li>
 </ol>
 
 
@@ -55,9 +54,11 @@
     </dl>
 </div>
 
+<h4 class="text-center"><b>Tipos de Piezas Principales para @Html.DisplayFor(model => model.Nombre)</b></h4>
 <!-- Campo que se reemplaza-->
+
 <div id="renderListaTipoPiezas">
-    @{ Html.RenderAction("Lista", "TipoPieza", new { id = Model.TipoObraID }); }
+    @{ Html.RenderAction("Lista", "TipoPieza", new { id = Model.TipoObraID, esRoot = true }); }
 </div>
 
 <script src="~/Scripts/js_vistas/tipoObraLista.js"></script>
