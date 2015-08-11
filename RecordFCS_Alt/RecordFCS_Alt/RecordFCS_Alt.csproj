@@ -173,8 +173,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\js_vistas\tipoObraLista.js" />
-    <Content Include="Scripts\js_vistas\tipoPiezaLista.js" />
+    <Content Include="Scripts\openModalSimple.js" />
+    <Content Include="Scripts\tipoObraLista.js" />
+    <Content Include="Scripts\tipoPiezaLista.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -201,18 +202,16 @@
     <Content Include="Views\TipoObra\_Editar.cshtml" />
     <Content Include="Views\TipoObra\_Lista.cshtml" />
     <Content Include="Views\TipoObra\Index.cshtml" />
-    <Content Include="Views\Shared\_Alertas.cshtml" />
+    <Content Include="Views\Base\_Alertas.cshtml" />
     <Content Include="Views\TipoPieza\_Crear.cshtml" />
     <Content Include="Views\TipoPieza\_Eliminar.cshtml" />
     <Content Include="Views\TipoPieza\Detalles.cshtml" />
     <Content Include="Views\TipoPieza\_Editar.cshtml" />
     <Content Include="Views\TipoPieza\_Lista.cshtml" />
-    <Content Include="Views\TipoPieza\_ListaHija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,7 +1,7 @@
 ﻿$(function () {
     $.ajaxSetup({ cache: false });
     $("a[data-modal].openModal_TipoObra").on("click", function (e) {
-        alert("tipoObra");
+
         $('#miModalContenido').load(this.href, function () {
             $('#miModal').modal({
                 backdrop: 'static',
@@ -14,7 +14,10 @@
 });
 
 function bindForm_TipoObra(dialog) {
-    $('form', dialog).submit(function () {
+   
+
+    $('form', dialog).submit(function (e) {
+        e.preventDefault();
 
         if ($(this).validate().valid()) {
             $.ajax({
@@ -25,16 +28,17 @@ function bindForm_TipoObra(dialog) {
                     if (result.success) {
                         $('#miModal').modal('hide');
 
+                        $('#alertasDiv').load('/Base/_Alertas');
+
+                        
                         if ($('#renderListaTipoObra').length)
                             $('#renderListaTipoObra').load(result.url); //  Campo que actualizara
                         else
                             window.location.reload();
 
-                        $('#alertasDiv').load('@Url.Action("_Alertas","Base")');
 
                     } else {
                         $('#miModalContenido').html(result);
-                        $('#alertasDiv').load('@Url.Action("_Alertas","Base")');
                         bindForm_TipoObra(dialog);
                     }
                 }

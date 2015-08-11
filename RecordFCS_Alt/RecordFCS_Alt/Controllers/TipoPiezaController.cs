@@ -127,7 +127,15 @@ namespace RecordFCS_Alt.Controllers
                 //ptincipal true enviar tipoobraid
 
 
-                string url = Url.Action("Lista", "TipoPieza");
+
+                string url = "";
+
+                if (tipoPieza.TipoPiezaPadreID == null)
+                    url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoObraID, esRoot = true });
+                else
+                    url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoPiezaPadreID });
+                
+
                 return Json(new { success = true, url = url });
 
             }
@@ -136,7 +144,7 @@ namespace RecordFCS_Alt.Controllers
         }
 
         // GET: TipoPieza/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Editar(Guid? id)
         {
             if (id == null)
             {
@@ -147,31 +155,44 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", tipoPieza.TipoObraID);
-            ViewBag.TipoPiezaPadreID = new SelectList(db.TipoPiezas, "TipoPiezaID", "Nombre", tipoPieza.TipoPiezaPadreID);
-            return View(tipoPieza);
+
+            return PartialView("_Editar", tipoPieza);
         }
 
         // POST: TipoPieza/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
+        public ActionResult Editar([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
+            var tp = db.TipoPiezas.SingleOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
+
+            if (tp != null)
+                if (tp.TipoPiezaID != tipoPieza.TipoPiezaID)
+                    ModelState.AddModelError("Nombre", "Nombre ya existe.");
+
             if (ModelState.IsValid)
             {
                 db.Entry(tipoPieza).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                AlertaInfo(string.Format("Tipo de Pieza: <b>{0}</b> se editó.", tipoPieza.Nombre), true);
+
+
+                string url = "";
+
+                if (tipoPieza.TipoPiezaPadreID == null)
+                    url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoObraID, esRoot = true });
+                else
+                    url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoPiezaPadreID });
+                
+                return Json(new { success = true, url = url });
             }
-            ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", tipoPieza.TipoObraID);
-            ViewBag.TipoPiezaPadreID = new SelectList(db.TipoPiezas, "TipoPiezaID", "Nombre", tipoPieza.TipoPiezaPadreID);
-            return View(tipoPieza);
+
+            return PartialView("_Editar", tipoPieza);
         }
 
-        // GET: TipoPieza/Delete/5
-        public ActionResult Delete(Guid? id)
+        // GET: TipoPieza/Eliminar/5
+        public ActionResult Eliminar(Guid? id)
         {
             if (id == null)
             {
@@ -182,18 +203,50 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoPieza);
+            return PartialView("_Eliminar", tipoPieza);
         }
 
-        // POST: TipoPieza/Delete/5
-        [HttpPost, ActionName("Delete")]
+
+        // POST: TipoPieza/Eliminar/5
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult EliminarConfirmado(Guid id)
         {
+            string btnValue = Request.Form["accionx"];
+
             TipoPieza tipoPieza = db.TipoPiezas.Find(id);
-            db.TipoPiezas.Remove(tipoPieza);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            var toID = tipoPieza.TipoObraID;
+            var tppID = tipoPieza.TipoPiezaPadreID;
+
+            switch (btnValue)
+            {
+                case "deshabilitar":
+                    tipoPieza.Status = false;
+                    db.Entry(tipoPieza).State = EntityState.Modified;
+                    db.SaveChanges();
+                    AlertaDefault(string.Format("Se deshabilito <b>{0}</b>", tipoPieza.Nombre), true);
+                    break;
+                case "eliminar":
+                    db.TipoPiezas.Remove(tipoPieza);
+                    db.SaveChanges();
+                    AlertaDanger(string.Format("Se elimino <b>{0}</b>", tipoPieza.Nombre), true);
+                    break;
+                default:
+                    AlertaDanger(string.Format("Ocurrio un error."), true);
+                    break;
+            }
+
+
+            string url = "";
+
+            if (tppID == null)
+                url = Url.Action("Lista", "TipoPieza", new { id = toID, esRoot = true });
+            else
+                url = Url.Action("Lista", "TipoPieza", new { id = tppID });
+                
+
+            return Json(new { success = true, url = url });
         }
 
 
@@ -201,26 +254,29 @@ namespace RecordFCS_Alt.Controllers
         {
             bool x = false;
 
-            TipoObra tipoObra = db.TipoObras.Find(TipoObraID);
-            if (tipoObra != null)
-            {
-                if (TipoPiezaPadreID == null)
-                {
-                    //creando una pieza en el root
-                    var tpEnRoot = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
-                    //crear y/o actualizar
-                    x = tpEnRoot == null ? true : tpEnRoot.TipoPiezaID == TipoPiezaID ? true : false;
-                }
-                else
-                {
-                    //creando una pieza en el padre
-                    var tpEnPadre = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
-                    //crear y/o actualizar
-                    x = tpEnPadre == null ? true : tpEnPadre.TipoPiezaID == TipoPiezaID ? true : false;
+            //TipoObra tipoObra = db.TipoObras.Find(TipoObraID);
+            //if (tipoObra != null)
+            //{
+            //    if (TipoPiezaPadreID == null)
+            //    {
+            //        //creando una pieza en el root
+            //        var tpEnRoot = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
+            //        //crear y/o actualizar
+            //        x = tpEnRoot == null ? true : tpEnRoot.TipoPiezaID == TipoPiezaID ? true : false;
+            //    }
+            //    else
+            //    {
+            //        //creando una pieza en el padre
+            //        var tpEnPadre = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
+            //        //crear y/o actualizar
+            //        x = tpEnPadre == null ? true : tpEnPadre.TipoPiezaID == TipoPiezaID ? true : false;
 
-                }
-            }
+            //    }
+            //}
 
+            var tp = db.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoObraID == TipoObraID && a.TipoPiezaPadreID == TipoPiezaPadreID);
+            x = tp == null ? true : tp.TipoPiezaID == TipoPiezaID ? true : false;
+                          
 
             return Json(x);
         }

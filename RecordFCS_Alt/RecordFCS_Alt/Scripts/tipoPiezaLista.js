@@ -1,8 +1,11 @@
-﻿$(function () {
+﻿
+
+
+
+$(function () {
     $.ajaxSetup({ cache: false });
     $("a[data-modal].openModal_TipoPieza").on("click", function (e) {
-        alert("tipoPieza");
-
+       
         $('#miModalContenido').load(this.href, function () {
             $('#miModal').modal({
                 backdrop: 'static',
@@ -15,9 +18,15 @@
 });
 
 function bindForm_TipoPieza(dialog) {
-    $('form', dialog).submit(function () {
+    $('form', dialog).submit(function (e) {
+        e.preventDefault();
 
-        if ($(this).validate().valid()) {
+        var validarOK = false;
+
+
+        validarOK = $(this).validate().valid();
+
+        if (validarOK) {
             $.ajax({
                 url: this.action,
                 type: this.method,
@@ -31,11 +40,10 @@ function bindForm_TipoPieza(dialog) {
                         else
                             window.location.reload();
 
-                        $('#alertasDiv').load('@Url.Action("_Alertas","Base")');
+                        $('#alertasDiv').load('/Base/_Alertas');
 
                     } else {
                         $('#miModalContenido').html(result);
-                        $('#alertasDiv').load('@Url.Action("_Alertas","Base")');
                         bindForm_TipoPieza(dialog);
                     }
                 }

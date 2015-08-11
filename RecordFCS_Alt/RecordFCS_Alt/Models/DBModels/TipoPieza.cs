@@ -13,6 +13,7 @@ namespace RecordFCS_Alt.Models
     {
         [Key]
         public Guid TipoPiezaID { get; set; }
+
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public string Prefijo { get; set; }
@@ -45,7 +46,7 @@ namespace RecordFCS_Alt.Models
 
 
 
-    public partial class TipoPiezaMetadata
+    public class TipoPiezaMetadata
     {
         public Guid TipoPiezaID { get; set; }
 
