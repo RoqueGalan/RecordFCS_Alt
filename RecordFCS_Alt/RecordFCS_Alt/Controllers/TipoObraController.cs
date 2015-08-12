@@ -29,7 +29,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Lista", lista);
         }
 
-        // GET: TipoObra/Details/5
+        // GET: TipoObra/Detalles/5
         public ActionResult Detalles(Guid? id)
         {
             if (id == null)
@@ -45,7 +45,7 @@ namespace RecordFCS_Alt.Controllers
             return View(tipoObra);
         }
 
-        // GET: TipoObra/Create
+        // GET: TipoObra/Crear
         public ActionResult Crear()
         {
             var tipoObra = new TipoObra()
@@ -55,7 +55,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Crear", tipoObra);
         }
 
-        // POST: TipoObra/Create
+        // POST: TipoObra/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Crear([Bind(Include = "TipoObraID,Nombre,Descripcion,Status,Temp")] TipoObra tipoObra)

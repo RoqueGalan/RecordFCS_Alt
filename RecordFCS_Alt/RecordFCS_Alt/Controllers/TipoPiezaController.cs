@@ -57,7 +57,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Lista", lista.ToList());
         }
 
-        // GET: TipoPieza/Details/5
+        // GET: TipoPieza/Detalles/5
         public ActionResult Detalles(Guid? id)
         {
             if (id == null)
@@ -72,7 +72,7 @@ namespace RecordFCS_Alt.Controllers
             return View(tipoPieza);
         }
 
-        // GET: TipoPieza/Create
+        // GET: TipoPieza/Crear
         public ActionResult Crear(Guid? id, bool principal = false)
         {
             if (id == null)
@@ -109,7 +109,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Crear", tp);
         }
 
-        // POST: TipoPieza/Create
+        // POST: TipoPieza/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Crear([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
