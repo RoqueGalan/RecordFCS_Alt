@@ -36,6 +36,8 @@ namespace RecordFCS_Alt.Models
 
     public class AtributoMetadata
     {
+        public Guid AtributoID { get; set; }
+
         [StringLength(64)]
         [Display(Name = "Nombre Alterno")]
         public string NombreAlterno { get; set; }
@@ -47,7 +49,7 @@ namespace RecordFCS_Alt.Models
         public Guid TipoPiezaID { get; set; }
 
         [Display(Name = "Tipo de Atributo")]
-        [Remote("EsUnico", "Atributo", HttpMethod = "POST", AdditionalFields = "TipoPiezaID", ErrorMessage = "Atributo ya existe.")]
+        [Remote("EsUnico", "Atributo", HttpMethod = "POST", AdditionalFields = "TipoPiezaID,AtributoID", ErrorMessage = "Atributo ya existe.")]
         public Guid TipoAtributoID { get; set; }
     }
 

@@ -78,10 +78,10 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
 
-        <dt>Acciones</dt>
+        @*<dt>Acciones</dt>
         <dd>
             @Html.NoEncodeActionLink("<span class='fa fa-pencil'></span>", "Editar", "Editar", "TipoPieza", routeValues: new { id = Model.TipoPiezaID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-default btn-xs openModal_TipoPieza" })
-        </dd>
+        </dd>*@
     </dl>
 </div>
 
@@ -91,7 +91,7 @@
 </div>
 
 <hr />
-<h4 class="text-center"><b>Tipos de Piezas para @Html.DisplayFor(model => model.Nombre)</b></h4>
+<h4 class="text-center"><b>Tipos de Piezas adicionales para @Html.DisplayFor(model => model.Nombre)</b></h4>
 
 <div id="renderListaTipoPiezas">
     @{ Html.RenderAction("Lista", "TipoPieza", new { id = Model.TipoPiezaID }); }

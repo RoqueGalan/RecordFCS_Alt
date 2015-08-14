@@ -165,6 +165,7 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\add.toolTip.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\atributoLista.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -214,10 +215,9 @@
     <Content Include="Views\TipoAtributo\Index.cshtml" />
     <Content Include="Views\TipoAtributo\_Lista.cshtml" />
     <Content Include="Views\TipoAtributo\_Crear.cshtml" />
-    <Content Include="Views\Atributo\Create.cshtml" />
-    <Content Include="Views\Atributo\Delete.cshtml" />
-    <Content Include="Views\Atributo\Details.cshtml" />
-    <Content Include="Views\Atributo\Edit.cshtml" />
+    <Content Include="Views\Atributo\_Crear.cshtml" />
+    <Content Include="Views\Atributo\_Eliminar.cshtml" />
+    <Content Include="Views\Atributo\_Editar.cshtml" />
     <Content Include="Views\Atributo\_Lista.cshtml" />
     <Content Include="Views\TipoAtributo\_Editar.cshtml" />
     <Content Include="Views\TipoAtributo\_Eliminar.cshtml" />

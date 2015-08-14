@@ -114,7 +114,12 @@ namespace RecordFCS_Alt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Crear([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
+            var tp = db.TipoPiezas.Select(a => new { a.TipoObraID, a.TipoPiezaPadreID, a.TipoPiezaID, a.Nombre }).FirstOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
 
+            if (tp != null)
+                if (tp.TipoPiezaID != tipoPieza.TipoPiezaID)
+                    ModelState.AddModelError("Nombre", "Nombre ya existe.");
+            
 
             if (ModelState.IsValid)
             {
@@ -124,7 +129,7 @@ namespace RecordFCS_Alt.Controllers
 
                 AlertaSuccess(string.Format("Tipo de Pieza: <b>{0}</b> creada.", tipoPieza.Nombre), true);
 
-                //ptincipal true enviar tipoobraid
+                //principal true enviar tipoobraid
 
 
 
@@ -164,12 +169,12 @@ namespace RecordFCS_Alt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
-            var tp = db.TipoPiezas.SingleOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
+            var tp = db.TipoPiezas.Select(a => new { a.TipoObraID, a.TipoPiezaPadreID, a.TipoPiezaID, a.Nombre}).FirstOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
 
             if (tp != null)
                 if (tp.TipoPiezaID != tipoPieza.TipoPiezaID)
                     ModelState.AddModelError("Nombre", "Nombre ya existe.");
-
+            
             if (ModelState.IsValid)
             {
                 db.Entry(tipoPieza).State = EntityState.Modified;
