@@ -28,3 +28,84 @@ textarea {
 .container.body-content {
     padding-bottom: 1em;
 }
+
+
+
+/* ALERTAS */
+
+.fondo-danger {
+    background-color: #ef4327;
+}
+
+    .fondo-danger:hover {
+        background-color: #ca2b10;
+    }
+
+.fondo-warning {
+    background-color: #e5921b;
+}
+
+    .fondo-warning:hover {
+        background-color: #be7307;
+    }
+
+.fondo-success {
+    background-color: #46ba71;
+}
+
+    .fondo-success :hover {
+        background-color: #2ba559;
+    }
+
+.fondo-info {
+    background-color: #149ac6;
+}
+
+    .fondo-info:hover {
+        background-color: #02779d;
+    }
+
+.fondo-inverse {
+    background-color: #3d3d3d;
+}
+
+    .fondo-inverse:hover {
+        background-color: #000000;
+    }
+
+.fondo {
+    background-color: #e6e5e5 !important;
+}
+
+.fondo-default {
+    background-color: #969696;
+}
+
+    .fondo-default:hover {
+        background-color: #636363;
+    }
+
+
+.fondo-muted {
+    background-color: #e6e5e5;
+}
+
+    .fondo-muted:hover {
+        background-color: #b0adad;
+    }
+
+
+
+
+
+.text-gray {
+    color: #dddcdc;
+}
+
+a .text-gray:hover {
+    color: #b0adad;
+}
+
+a .text-success:hover {
+    color: #2ba559;
+}

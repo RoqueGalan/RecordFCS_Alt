@@ -14,6 +14,7 @@ namespace RecordFCS_Alt.Models
         public bool Status { get; set; }
 
         //virtual
-        public ICollection<MostrarAtributo> MostrarAtributos { get; set; }
-    }
+        public virtual ICollection<MostrarAtributo> MostrarAtributos { get; set; }
+    } 
+
 }

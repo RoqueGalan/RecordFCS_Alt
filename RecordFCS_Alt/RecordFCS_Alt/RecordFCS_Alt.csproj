@@ -121,7 +121,9 @@
     <Compile Include="Controllers\AtributoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MostrarAtributoController.cs" />
     <Compile Include="Controllers\TipoAtributoController.cs" />
+    <Compile Include="Controllers\TipoMostrarController.cs" />
     <Compile Include="Controllers\TipoObraController.cs" />
     <Compile Include="Controllers\TipoPiezaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,6 +178,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mostrarAtributoLista.js" />
     <Content Include="Scripts\openModalSimple.js" />
     <Content Include="Scripts\tipoAtributoLista.js" />
     <Content Include="Scripts\tipoObraLista.js" />
@@ -185,6 +188,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tipoTipoMostrarLista.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -221,6 +225,14 @@
     <Content Include="Views\Atributo\_Lista.cshtml" />
     <Content Include="Views\TipoAtributo\_Editar.cshtml" />
     <Content Include="Views\TipoAtributo\_Eliminar.cshtml" />
+    <Content Include="Views\TipoMostrar\_Crear.cshtml" />
+    <Content Include="Views\TipoMostrar\_Eliminar.cshtml" />
+    <Content Include="Views\TipoMostrar\_Editar.cshtml" />
+    <Content Include="Views\TipoMostrar\_Lista.cshtml" />
+    <Content Include="Views\TipoMostrar\Index.cshtml" />
+    <Content Include="Views\MostrarAtributo\_Editar.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
