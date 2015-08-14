@@ -133,12 +133,15 @@
     <Compile Include="Helpers\HTMLHelpers.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DBModels\Atributo.cs" />
+    <Compile Include="Models\DBModels\LetraInventario.cs" />
     <Compile Include="Models\DBModels\MostrarAtributo.cs" />
+    <Compile Include="Models\DBModels\Obra.cs" />
     <Compile Include="Models\DBModels\RecordFCSContext.cs" />
     <Compile Include="Models\DBModels\TipoAtributo.cs" />
     <Compile Include="Models\DBModels\TipoMostrar.cs" />
     <Compile Include="Models\DBModels\TipoObra.cs" />
     <Compile Include="Models\DBModels\TipoPieza.cs" />
+    <Compile Include="Models\DBModels\Ubicacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
