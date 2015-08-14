@@ -118,6 +118,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AtributoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TipoAtributoController.cs" />
@@ -213,6 +214,13 @@
     <Content Include="Views\TipoAtributo\Index.cshtml" />
     <Content Include="Views\TipoAtributo\_Lista.cshtml" />
     <Content Include="Views\TipoAtributo\_Crear.cshtml" />
+    <Content Include="Views\Atributo\Create.cshtml" />
+    <Content Include="Views\Atributo\Delete.cshtml" />
+    <Content Include="Views\Atributo\Details.cshtml" />
+    <Content Include="Views\Atributo\Edit.cshtml" />
+    <Content Include="Views\Atributo\_Lista.cshtml" />
+    <Content Include="Views\TipoAtributo\_Editar.cshtml" />
+    <Content Include="Views\TipoAtributo\_Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

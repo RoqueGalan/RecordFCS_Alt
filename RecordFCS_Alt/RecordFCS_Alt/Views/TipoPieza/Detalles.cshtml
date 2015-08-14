@@ -85,9 +85,12 @@
     </dl>
 </div>
 
-<div id="renderListaAtributos"></div>
+<h4 class="text-center"><b>Atributos para @Html.DisplayFor(model => model.Nombre)</b></h4>
+<div id="renderListaAtributos">
+    @{ Html.RenderAction("Lista", "Atributo", new { id = Model.TipoPiezaID }); }
+</div>
 
-
+<hr />
 <h4 class="text-center"><b>Tipos de Piezas para @Html.DisplayFor(model => model.Nombre)</b></h4>
 
 <div id="renderListaTipoPiezas">

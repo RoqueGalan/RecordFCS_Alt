@@ -4,13 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
-    public class Atributo
+    [MetadataType(typeof(AtributoMetadata))]
+    public partial class Atributo
     {
         [Key]
         public Guid AtributoID { get; set; }
+        public int Orden { get; set; }
         public string NombreAlterno { get; set; }
         public bool Status { get; set; }
 
@@ -30,4 +33,23 @@ namespace RecordFCS_Alt.Models
         //public virtual ICollection<AtributoPieza> AtributoPiezas { get; set; }
 
     }
+
+    public class AtributoMetadata
+    {
+        [StringLength(64)]
+        [Display(Name = "Nombre Alterno")]
+        public string NombreAlterno { get; set; }
+
+        [Display(Name = "Estado")]
+        public bool Status { get; set; }
+
+        [Display(Name = "Tipo de Pieza")]
+        public Guid TipoPiezaID { get; set; }
+
+        [Display(Name = "Tipo de Atributo")]
+        [Remote("EsUnico", "Atributo", HttpMethod = "POST", AdditionalFields = "TipoPiezaID", ErrorMessage = "Atributo ya existe.")]
+        public Guid TipoAtributoID { get; set; }
+    }
+
+
 }

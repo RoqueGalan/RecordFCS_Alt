@@ -143,7 +143,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Crear", tipoPieza);
         }
 
-        // GET: TipoPieza/Edit/5
+        // GET: TipoPieza/Editar/5
         public ActionResult Editar(Guid? id)
         {
             if (id == null)
@@ -159,7 +159,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Editar", tipoPieza);
         }
 
-        // POST: TipoPieza/Edit/5
+        // POST: TipoPieza/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)

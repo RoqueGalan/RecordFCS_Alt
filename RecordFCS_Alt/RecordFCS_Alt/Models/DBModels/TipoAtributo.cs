@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
@@ -52,6 +53,7 @@ namespace RecordFCS_Alt.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
         [StringLength(64)]
         [Display(Name = "Tipo de Atributo")]
+        [Remote("EsUnico", "TipoAtributo", HttpMethod = "POST", AdditionalFields = "TipoAtributoID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
 
         [StringLength(128)]
@@ -90,6 +92,7 @@ namespace RecordFCS_Alt.Models
 
         //Anteriores
         [Display(Name = "Nombre Único")]
+        [StringLength(64)]
         public string Temp { get; set; }
     }
 }

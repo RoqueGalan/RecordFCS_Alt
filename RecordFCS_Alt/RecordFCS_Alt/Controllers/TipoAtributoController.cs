@@ -67,7 +67,7 @@ namespace RecordFCS_Alt.Controllers
         // POST: TipoAtributo/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear([Bind(Include = "TipoAtributoID,Nombre,Descripcion,Dato,EsLista,EsMultipleValor,MyProperty,PerteneceA,Tabla,HTMLAtributos,EstaEnBuscador,Orden,Status,Temp")] TipoAtributo tipoAtt)
+        public ActionResult Crear(TipoAtributo tipoAtt)
         {
             //revalidar campo unico
 
@@ -86,8 +86,8 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Crear", tipoAtt);
         }
 
-        // GET: TipoAtributo/Edit/5
-        public ActionResult Edit(Guid? id)
+        // GET: TipoAtributo/Editar/5
+        public ActionResult Editar(Guid? id)
         {
             if (id == null)
             {
@@ -98,27 +98,40 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_Crear", tipoAtt);
+
+            return PartialView("_Editar", tipoAtt);
         }
 
-        // POST: TipoAtributo/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: TipoAtributo/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TipoAtributoID,Nombre,Descripcion,Dato,EsLista,EsMultipleValor,MyProperty,PerteneceA,Tabla,HTMLAtributos,EstaEnBuscador,Orden,Status,Temp")] TipoAtributo tipoAtributo)
+        public ActionResult Editar(TipoAtributo tipoAtributo)
         {
+            var ta = db.TipoAtributos.Select(a => new { a.TipoAtributoID, a.Nombre }).SingleOrDefault(a => a.Nombre == tipoAtributo.Nombre);
+
+
+            if (ta != null)
+                if (ta.TipoAtributoID != tipoAtributo.TipoAtributoID)
+                    ModelState.AddModelError("Nombre", "Nombre ya existe.");
+
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(tipoAtributo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+
+                AlertaInfo(string.Format("Tipo de Atributo: <b>{0}</b> se editó.", tipoAtributo.Nombre), true);
+                string url = Url.Action("Lista", "TipoAtributo");
+                return Json(new { success = true, url = url });
             }
-            return View(tipoAtributo);
+
+            return PartialView("_Editar", tipoAtributo);
         }
 
-        // GET: TipoAtributo/Delete/5
-        public ActionResult Delete(Guid? id)
+        // GET: TipoAtributo/Eliminar/5
+        public ActionResult Eliminar(Guid? id)
         {
             if (id == null)
             {
@@ -129,18 +142,53 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoAtributo);
+            return PartialView("_Eliminar", tipoAtributo);
         }
 
-        // POST: TipoAtributo/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: TipoAtributo/Eliminar/5
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult EliminarConfirmado(Guid id)
         {
+            string btnValue = Request.Form["accionx"];
+
             TipoAtributo tipoAtributo = db.TipoAtributos.Find(id);
-            db.TipoAtributos.Remove(tipoAtributo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            switch (btnValue)
+            {
+                case "deshabilitar":
+                    tipoAtributo.Status = false;
+                    db.Entry(tipoAtributo).State = EntityState.Modified;
+                    db.SaveChanges();
+                    AlertaDefault(string.Format("Se deshabilito <b>{0}</b>", tipoAtributo.Nombre), true);
+                    break;
+                case "eliminar":
+                    db.TipoAtributos.Remove(tipoAtributo);
+                    db.SaveChanges();
+                    AlertaDanger(string.Format("Se elimino <b>{0}</b>", tipoAtributo.Nombre), true);
+                    break;
+                default:
+                    AlertaDanger(string.Format("Ocurrio un error."), true);
+                    break;
+            }
+
+
+            string url = Url.Action("Lista", "TipoAtributo");
+            return Json(new { success = true, url = url });
+        }
+
+
+
+        public JsonResult EsUnico(string Nombre, Guid? TipoAtributoID)
+        {
+            bool x = false;
+
+
+            var ta = db.TipoAtributos.Select(a => new { a.TipoAtributoID, a.Nombre }).SingleOrDefault(a => a.Nombre == Nombre);
+
+            x = ta == null ? true : ta.TipoAtributoID == TipoAtributoID ? true : false;
+
+            return Json(x);
         }
 
         protected override void Dispose(bool disposing)

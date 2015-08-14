@@ -61,6 +61,8 @@ namespace RecordFCS_Alt.Models
         public string Descripcion { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
+        [StringLength(3)]
+        [Display(Name = "Letra")]
         public string Prefijo { get; set; }
 
         [Required(ErrorMessage = "Requerido.")]
@@ -73,6 +75,7 @@ namespace RecordFCS_Alt.Models
         public Guid? TipoPiezaPadreID { get; set; }
 
 
-
+        [StringLength(32)]
+        public string Temp { get; set; }
     }
 }

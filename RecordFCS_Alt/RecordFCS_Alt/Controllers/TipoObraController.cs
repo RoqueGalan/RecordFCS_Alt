@@ -98,7 +98,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Crear", tipoObra);
         }
 
-        // GET: TipoObra/Edit/5
+        // GET: TipoObra/Editar/5
         public ActionResult Editar(Guid? id)
         {
             if (id == null)
@@ -113,7 +113,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Editar", tipoObra);
         }
 
-        // POST: TipoObra/Edit/5
+        // POST: TipoObra/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "TipoObraID,Nombre,Descripcion,Status,Temp")] TipoObra tipoObra)
@@ -139,7 +139,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Editar", tipoObra);
         }
 
-        // GET: TipoObra/Delete/5
+        // GET: TipoObra/Eliminar/5
         public ActionResult Eliminar(Guid? id)
         {
             if (id == null)
@@ -154,7 +154,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Eliminar", tipoObra);
         }
 
-        // POST: TipoObra/Delete/5
+        // POST: TipoObra/Eliminar/5
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult EliminarConfirmado(Guid id)
