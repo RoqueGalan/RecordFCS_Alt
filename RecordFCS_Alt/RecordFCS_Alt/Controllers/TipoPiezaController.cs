@@ -57,6 +57,40 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Lista", lista.ToList());
         }
 
+
+        public ActionResult ListaSelect(Guid? id, bool esRoot = false)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            //id = TipoPiezaID
+            IEnumerable<TipoPieza> lista = null;
+
+            if (esRoot)
+            {
+                TipoObra tipoObra = db.TipoObras.Find(id);
+                if (tipoObra == null) return HttpNotFound();
+
+                lista = tipoObra.TipoPiezas.Where(a => a.EsPrincipal && a.Status && a.TipoPiezaPadreID == null).OrderBy(a => a.Nombre);
+            }
+            else
+            {
+                TipoPieza tipoPiezaPadre = db.TipoPiezas.Find(id);
+
+                if (tipoPiezaPadre == null) return HttpNotFound();
+
+                lista = tipoPiezaPadre.TipoPiezasHijas.Where(a=> a.Status).OrderBy(a => a.Nombre);
+
+            }
+
+
+            ViewBag.totalRegistros = lista.Count();
+
+            ViewBag.TipoPiezaID = new SelectList(lista.Select(a => new { a.TipoPiezaID, Nombre = a.Nombre + " - " + a.Descripcion}).ToList(), "TipoPiezaID", "Nombre");
+
+
+            return PartialView("_Registro_inputSelect");
+        }
+
         // GET: TipoPieza/Detalles/5
         public ActionResult Detalles(Guid? id)
         {
@@ -119,7 +153,7 @@ namespace RecordFCS_Alt.Controllers
             if (tp != null)
                 if (tp.TipoPiezaID != tipoPieza.TipoPiezaID)
                     ModelState.AddModelError("Nombre", "Nombre ya existe.");
-            
+
 
             if (ModelState.IsValid)
             {
@@ -139,7 +173,7 @@ namespace RecordFCS_Alt.Controllers
                     url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoObraID, esRoot = true });
                 else
                     url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoPiezaPadreID });
-                
+
 
                 return Json(new { success = true, url = url });
 
@@ -169,12 +203,12 @@ namespace RecordFCS_Alt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "TipoPiezaID,Nombre,Descripcion,Prefijo,Orden,EsPrincipal,Status,TipoObraID,TipoPiezaPadreID,Temp")] TipoPieza tipoPieza)
         {
-            var tp = db.TipoPiezas.Select(a => new { a.TipoObraID, a.TipoPiezaPadreID, a.TipoPiezaID, a.Nombre}).FirstOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
+            var tp = db.TipoPiezas.Select(a => new { a.TipoObraID, a.TipoPiezaPadreID, a.TipoPiezaID, a.Nombre }).FirstOrDefault(a => a.Nombre == tipoPieza.Nombre && a.TipoObraID == tipoPieza.TipoObraID && a.TipoPiezaPadreID == tipoPieza.TipoPiezaPadreID);
 
             if (tp != null)
                 if (tp.TipoPiezaID != tipoPieza.TipoPiezaID)
                     ModelState.AddModelError("Nombre", "Nombre ya existe.");
-            
+
             if (ModelState.IsValid)
             {
                 db.Entry(tipoPieza).State = EntityState.Modified;
@@ -189,7 +223,7 @@ namespace RecordFCS_Alt.Controllers
                     url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoObraID, esRoot = true });
                 else
                     url = Url.Action("Lista", "TipoPieza", new { id = tipoPieza.TipoPiezaPadreID });
-                
+
                 return Json(new { success = true, url = url });
             }
 
@@ -249,7 +283,7 @@ namespace RecordFCS_Alt.Controllers
                 url = Url.Action("Lista", "TipoPieza", new { id = toID, esRoot = true });
             else
                 url = Url.Action("Lista", "TipoPieza", new { id = tppID });
-                
+
 
             return Json(new { success = true, url = url });
         }
@@ -281,7 +315,7 @@ namespace RecordFCS_Alt.Controllers
 
             var tp = db.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoObraID == TipoObraID && a.TipoPiezaPadreID == TipoPiezaPadreID);
             x = tp == null ? true : tp.TipoPiezaID == TipoPiezaID ? true : false;
-                          
+
 
             return Json(x);
         }

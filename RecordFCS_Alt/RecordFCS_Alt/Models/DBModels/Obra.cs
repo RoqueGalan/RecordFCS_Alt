@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
@@ -13,33 +14,69 @@ namespace RecordFCS_Alt.Models
         [Key]
         public Guid ObraID { get; set; }
 
-        public string NoInventario { get; set; }
-        public Int64 NumeroConsecutivo { get; set; }
-        
-        public string FechaCreacion { get; set; }
+        public int NumeroFolio { get; set; }
 
-
+        public DateTime FechaRegistro { get; set; }
 
 
         //Llaves Foraneas
-        [ForeignKey("LetraInventario")]
-        public int LetraInventarioID { get; set; }
+        [ForeignKey("TipoObra")]
+        public Guid TipoObraID { get; set; }
+
+        [ForeignKey("LetraFolio")]
+        public int LetraFolioID { get; set; }
+
+        [ForeignKey("Coleccion")]
+        public Guid? ColeccionID { get; set; }
 
 
 
+
+        public bool Status { get; set; }
 
 
         //Anteriores
         public string Temp { get; set; }
 
+
         //Virtuales
-        public virtual LetraInventario LetraInventario { get; set; }
+        public virtual TipoObra TipoObra { get; set; }
+        public virtual LetraFolio LetraFolio { get; set; }
+        public virtual Coleccion Coleccion { get; set; }
+        //public virtual ICollection<Pieza> Piezas { get; set; }
     }
 
 
     public class ObraMetadata
     {
 
+        public Guid ObraID { get; set; }
+
+        [Display(Name = "Número de Folio")]
+        [Required(ErrorMessage = "Requerido.")]
+        [Remote("EsUnico", "Obra", HttpMethod = "POST", AdditionalFields = "LetraFolioID,ObraID", ErrorMessage = "Ya existe, intenta otro número o letra.")]
+        public int NumeroFolio { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha de Registro")]
+        [Required(ErrorMessage = "Requerido.")]
+        public DateTime FechaRegistro { get; set; }
+
+
+        //Llaves Foraneas
+        public Guid TipoObraID { get; set; }
+        public int LetraFolioID { get; set; }
+        public Guid? ColeccionID { get; set; }
+
+
+
+        [Display(Name = "Estado")]
+        public bool Status { get; set; }
+
+
+        [StringLength(32)]
+        public string Temp { get; set; }
     }
 
 }

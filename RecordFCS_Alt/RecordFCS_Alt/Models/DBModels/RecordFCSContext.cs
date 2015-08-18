@@ -20,8 +20,12 @@ namespace RecordFCS_Alt.Models
         public DbSet<TipoMostrar> TipoMostarlos { get; set; }
 
         //Obras
-        public DbSet<LetraInventario> LetraInventarios { get; set; }
+        public DbSet<LetraFolio> LetraFolios { get; set; }
         public DbSet<Obra> Obras { get; set; }
+
+        //Catalogos con tablas
+        public DbSet<Coleccion> Colecciones { get; set; }
+        public DbSet<Ubicacion> Ubicaciones { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

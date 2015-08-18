@@ -55,7 +55,7 @@ namespace RecordFCS_Alt.Controllers
             return PartialView("_Editar", mostrarAtributo);
         }
 
-        // GET: MostrarAtributo/Delete/5
+        // GET: MostrarAtributo/Eliminar/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -70,8 +70,8 @@ namespace RecordFCS_Alt.Controllers
             return View(mostrarAtributo);
         }
 
-        // POST: MostrarAtributo/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: MostrarAtributo/Eliminar/5
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RecordFCS_Alt.Models.DBModels
+namespace RecordFCS_Alt.Models
 {
     [MetadataType(typeof(UbicacionMetadata))]
-
     public partial class Ubicacion
     {
         [Key]
@@ -23,8 +22,7 @@ namespace RecordFCS_Alt.Models.DBModels
         public string Temp { get; set; }
 
         //Virtuales
-        public virtual ICollection<Obra> Obras { get; set; }
-        //public virtual ICollection<Pieza> Piezas { get; set; }
+        public virtual ICollection<Pieza> Piezas { get; set; }
     }
 
     public class UbicacionMetadata

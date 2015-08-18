@@ -120,28 +120,38 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AtributoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ColeccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MostrarAtributoController.cs" />
+    <Compile Include="Controllers\ObraController.cs" />
     <Compile Include="Controllers\TipoAtributoController.cs" />
     <Compile Include="Controllers\TipoMostrarController.cs" />
     <Compile Include="Controllers\TipoObraController.cs" />
     <Compile Include="Controllers\TipoPiezaController.cs" />
+    <Compile Include="Controllers\UbicacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Alerta.cs" />
     <Compile Include="Helpers\HTMLHelpers.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DBModels\Autor.cs" />
     <Compile Include="Models\DBModels\Atributo.cs" />
+    <Compile Include="Models\DBModels\Atributos\AutorPieza.cs" />
+    <Compile Include="Models\DBModels\Atributos\Coleccion.cs" />
+    <Compile Include="Models\DBModels\Atributos\Imagen.cs" />
     <Compile Include="Models\DBModels\LetraInventario.cs" />
+    <Compile Include="Models\DBModels\Atributos\MedidaPieza.cs" />
     <Compile Include="Models\DBModels\MostrarAtributo.cs" />
     <Compile Include="Models\DBModels\Obra.cs" />
+    <Compile Include="Models\DBModels\Pieza.cs" />
     <Compile Include="Models\DBModels\RecordFCSContext.cs" />
     <Compile Include="Models\DBModels\TipoAtributo.cs" />
+    <Compile Include="Models\DBModels\TipoMedida.cs" />
     <Compile Include="Models\DBModels\TipoMostrar.cs" />
     <Compile Include="Models\DBModels\TipoObra.cs" />
     <Compile Include="Models\DBModels\TipoPieza.cs" />
-    <Compile Include="Models\DBModels\Ubicacion.cs" />
+    <Compile Include="Models\DBModels\Atributos\Ubicacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +183,7 @@
     <Content Include="Scripts\atributoLista.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\coleccionLista.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -183,6 +194,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mostrarAtributoLista.js" />
     <Content Include="Scripts\openModalSimple.js" />
+    <Content Include="Scripts\reg.tipoPiezaSelect.js" />
     <Content Include="Scripts\tipoAtributoLista.js" />
     <Content Include="Scripts\tipoObraLista.js" />
     <Content Include="Scripts\tipoPiezaLista.js" />
@@ -192,6 +204,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tipoTipoMostrarLista.js" />
+    <Content Include="Scripts\ubicacionLista.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -236,6 +249,24 @@
     <Content Include="Views\MostrarAtributo\_Editar.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Ubicacion\_Crear.cshtml" />
+    <Content Include="Views\Ubicacion\_Eliminar.cshtml" />
+    <Content Include="Views\Ubicacion\Index.cshtml" />
+    <Content Include="Views\Ubicacion\_Editar.cshtml" />
+    <Content Include="Views\Ubicacion\_Lista.cshtml" />
+    <Content Include="Views\Coleccion\_Crear.cshtml" />
+    <Content Include="Views\Coleccion\_Eliminar.cshtml" />
+    <Content Include="Views\Coleccion\Index.cshtml" />
+    <Content Include="Views\Coleccion\_Editar.cshtml" />
+    <Content Include="Views\Coleccion\_Lista.cshtml" />
+    <Content Include="Views\Obra\Create.cshtml" />
+    <Content Include="Views\Obra\Delete.cshtml" />
+    <Content Include="Views\Obra\Details.cshtml" />
+    <Content Include="Views\Obra\Edit.cshtml" />
+    <Content Include="Views\Obra\Index.cshtml" />
+    <Content Include="Views\Obra\Registrar.cshtml" />
+    <Content Include="Scripts\reg.tipoObraSelect.js" />
+    <Content Include="Views\TipoPieza\_Registro_inputSelect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
