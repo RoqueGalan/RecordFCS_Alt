@@ -107,7 +107,7 @@ namespace RecordFCS_Alt.Models
         [Display(Name = "Estado")]
         public bool Status { get; set; }
 
-        [StringLength(32)]
+        [StringLength(63)]
         public string Temp { get; set; }
     }
 }

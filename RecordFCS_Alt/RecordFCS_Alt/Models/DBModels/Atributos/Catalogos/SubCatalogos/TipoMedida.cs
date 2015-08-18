@@ -7,32 +7,43 @@ using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
-    [MetadataType(typeof(LetraFolioMetadata))]
-    public partial class LetraFolio
+    [MetadataType(typeof(TipoMedidaMetadata))]
+    public partial class TipoMedida
     {
         [Key]
-        public int LetraFolioID { get; set; }
+        public Guid TipoMedidaID { get; set; }
+
         public string Nombre { get; set; }
+
         public string Descripcion { get; set; }
+
         public bool Status { get; set; }
+
+        //Anteriores
+        public string Temp { get; set; }
 
         //Virtuales
-        public virtual ICollection<Obra> Obras { get; set; }
+        public virtual ICollection<MedidaPieza> Medidas { get; set; }
     }
 
-    public class LetraFolioMetadata
+    class TipoMedidaMetadata
     {
-        public int LetraFolioID { get; set; }
+        public Guid TipoMedidaID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(2, ErrorMessage = "Máximo 2 letras")]
-        [Display(Name = "Letra")]
-        [Remote("EsUnico", "LetraFolio", HttpMethod = "POST", AdditionalFields = "LetraFolioID", ErrorMessage = "Ya existe, intenta otra letra.")]
+        [StringLength(255)]
+        [Display(Name = "Tipo de Médida")]
+        [Remote("EsUnico", "TipoMedida", HttpMethod = "POST", AdditionalFields = "TipoMedidaID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
-        [StringLength(127)]
+
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
+
         [Display(Name = "Estado")]
         public bool Status { get; set; }
+
+        [StringLength(63)]
+        public string Temp { get; set; }
+
     }
 }

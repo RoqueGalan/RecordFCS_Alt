@@ -49,7 +49,7 @@ namespace RecordFCS_Alt.Controllers
         // POST: Obra/Registrar
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrar([Bind(Include = "ObraID,NumeroFolio,FechaRegistro,TipoObraID,LetraFolioID,ColeccionID,Status,Temp")] Obra obra)
+        public ActionResult Registrar([Bind(Include = "ObraID,NumeroFolio,FechaRegistro,TipoObraID,LetraFolioID,Status,Temp")] Obra obra)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,6 @@ namespace RecordFCS_Alt.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ColeccionID = new SelectList(db.Colecciones, "ColeccionID", "Nombre", obra.ColeccionID);
             ViewBag.LetraFolioID = new SelectList(db.LetraFolios, "LetraFolioID", "Nombre", obra.LetraFolioID);
             ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", obra.TipoObraID);
             return View(obra);
@@ -77,7 +76,6 @@ namespace RecordFCS_Alt.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ColeccionID = new SelectList(db.Colecciones, "ColeccionID", "Nombre", obra.ColeccionID);
             ViewBag.LetraFolioID = new SelectList(db.LetraFolios, "LetraFolioID", "Nombre", obra.LetraFolioID);
             ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", obra.TipoObraID);
             return View(obra);
@@ -88,7 +86,7 @@ namespace RecordFCS_Alt.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ObraID,NumeroFolio,FechaRegistro,TipoObraID,LetraFolioID,ColeccionID,Status,Temp")] Obra obra)
+        public ActionResult Edit([Bind(Include = "ObraID,NumeroFolio,FechaRegistro,TipoObraID,LetraFolioID,Status,Temp")] Obra obra)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +94,6 @@ namespace RecordFCS_Alt.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ColeccionID = new SelectList(db.Colecciones, "ColeccionID", "Nombre", obra.ColeccionID);
             ViewBag.LetraFolioID = new SelectList(db.LetraFolios, "LetraFolioID", "Nombre", obra.LetraFolioID);
             ViewBag.TipoObraID = new SelectList(db.TipoObras, "TipoObraID", "Nombre", obra.TipoObraID);
             return View(obra);

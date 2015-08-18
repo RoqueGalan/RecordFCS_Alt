@@ -22,15 +22,45 @@ namespace RecordFCS_Alt.Models
         //Obras
         public DbSet<LetraFolio> LetraFolios { get; set; }
         public DbSet<Obra> Obras { get; set; }
+        public DbSet<Pieza> Piezas { get; set; }
 
-        //Catalogos con tablas
+        //Catalogos de Pieza
         public DbSet<Coleccion> Colecciones { get; set; }
         public DbSet<Ubicacion> Ubicaciones { get; set; }
+        public DbSet<Autor> Autores { get; set; }
+        public DbSet<Tecnica> Tecnicas { get; set; }
+
+        //SubCatalogos de Pieza
+        public DbSet<TipoMedida> TipoMedidas { get; set; }
+        public DbSet<TipoTecnica> TipoTecnicas { get; set; }
+
+        //Atributos de Pieza
+        public DbSet<AutorPieza> AutorPiezas { get; set; }
+        public DbSet<ImagenPieza> ImagenPiezas { get; set; }
+        public DbSet<MedidaPieza> MedidaPiezas { get; set; }
+        public DbSet<TecnicaPieza> TecnicaPiezas { get; set; }
+
+
+
+
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            //restringir eliminacion en cascada
+            //tipo pieza en pieza
+            modelBuilder.Entity<TipoPieza>().
+                HasMany(a => a.Piezas).
+                WithRequired(b => b.TipoPieza).
+                WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TipoTecnica>().
+                HasMany(a => a.Tecnicas).
+                WithRequired(b => b.TipoTecnica).
+                WillCascadeOnDelete(false);
         }
     }
 }

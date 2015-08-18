@@ -26,17 +26,17 @@ namespace RecordFCS_Alt.Models
 
         //Virtuales
         public virtual ICollection<AutorPieza> AutorPiezas { get; set; }
- 
+
     }
 
     public class AutorMetadata
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(128)]
+        [StringLength(127)]
         [Display(Name = "Nombre(s)")]
 
         public string Nombre { get; set; }
-        [StringLength(128)]
+        [StringLength(127)]
         [Display(Name = "Apellido(s)")]
         public string Apellido { get; set; }
 
@@ -56,6 +56,9 @@ namespace RecordFCS_Alt.Models
 
         [Display(Name = "Estado")]
         public bool Status { get; set; }
+
+        [StringLength(63)]
+        public string Temp { get; set; }
     }
 
 }

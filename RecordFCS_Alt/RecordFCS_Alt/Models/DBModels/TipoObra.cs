@@ -36,19 +36,19 @@ namespace RecordFCS_Alt.Models
         public Guid TipoObraID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(64)]
+        [StringLength(63)]
         [Display(Name = "Tipo de Obra")]
         [Remote("EsUnico", "TipoObra", HttpMethod = "POST", AdditionalFields = "TipoObraID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
 
-        [StringLength(128)]
+        [StringLength(255)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
         [Display(Name = "Estado")]
         public bool Status { get; set; }
 
-        [StringLength(32)]
+        [StringLength(63)]
         public string Temp { get; set; }
 
     }

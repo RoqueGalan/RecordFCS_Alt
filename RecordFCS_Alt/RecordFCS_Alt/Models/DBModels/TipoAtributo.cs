@@ -51,12 +51,12 @@ namespace RecordFCS_Alt.Models
         public int Orden { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(64)]
+        [StringLength(127)]
         [Display(Name = "Tipo de Atributo")]
         [Remote("EsUnico", "TipoAtributo", HttpMethod = "POST", AdditionalFields = "TipoAtributoID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
 
-        [StringLength(128)]
+        [StringLength(127)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
@@ -69,10 +69,10 @@ namespace RecordFCS_Alt.Models
         [Display(Name = "Multivalor")]
         public bool EsMultipleValor { get; set; }
 
-        [StringLength(64)]
+        [StringLength(63)]
         [Display(Name = "Pertenece a")]
         public string PerteneceA { get; set; }
-        [StringLength(64)]
+        [StringLength(63)]
         [Display(Name = "En la tabla")]
         public string TablaSQL { get; set; }
 
@@ -86,13 +86,14 @@ namespace RecordFCS_Alt.Models
         [Display(Name = "Dato C#")]
         public string DatoCS { get; set; }
         [Display(Name = "Parametros HTML")]
+        [StringLength(255)]
         public string HTMLParametros { get; set; }
 
 
 
         //Anteriores
         [Display(Name = "Nombre Único")]
-        [StringLength(64)]
+        [StringLength(63)]
         public string Temp { get; set; }
     }
 }

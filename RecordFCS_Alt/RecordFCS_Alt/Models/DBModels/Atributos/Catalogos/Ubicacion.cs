@@ -7,32 +7,43 @@ using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
-    [MetadataType(typeof(LetraFolioMetadata))]
-    public partial class LetraFolio
+    [MetadataType(typeof(UbicacionMetadata))]
+    public partial class Ubicacion
     {
         [Key]
-        public int LetraFolioID { get; set; }
+        public Guid UbicacionID { get; set; }
+
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public bool Status { get; set; }
 
+
+        //Anteriores
+        public string Temp { get; set; }
+
         //Virtuales
-        public virtual ICollection<Obra> Obras { get; set; }
+        public virtual ICollection<Pieza> Piezas { get; set; }
     }
 
-    public class LetraFolioMetadata
+    public class UbicacionMetadata
     {
-        public int LetraFolioID { get; set; }
+        public Guid UbicacionID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(2, ErrorMessage = "Máximo 2 letras")]
-        [Display(Name = "Letra")]
-        [Remote("EsUnico", "LetraFolio", HttpMethod = "POST", AdditionalFields = "LetraFolioID", ErrorMessage = "Ya existe, intenta otra letra.")]
+        [StringLength(127)]
+        [Display(Name = "Ubicación")]
+        [Remote("EsUnico", "Ubicacion", HttpMethod = "POST", AdditionalFields = "UbicacionID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
+
         [StringLength(127)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
+
         [Display(Name = "Estado")]
         public bool Status { get; set; }
+
+        [StringLength(63)]
+        public string Temp { get; set; }
+
     }
 }

@@ -7,43 +7,41 @@ using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
-    [MetadataType(typeof(UbicacionMetadata))]
-    public partial class Ubicacion
+    [MetadataType(typeof(TipoTecnicaMetadata))]
+    public partial class TipoTecnica
     {
         [Key]
-        public Guid UbicacionID { get; set; }
+        public Guid TipoTecnicaID { get; set; }
 
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public bool Status { get; set; }
 
-
-        //Anteriores
         public string Temp { get; set; }
 
-        //Virtuales
-        public virtual ICollection<Pieza> Piezas { get; set; }
+
+        //virtual
+        public virtual ICollection<Tecnica> Tecnicas { get; set; }
+
     }
 
-    public class UbicacionMetadata
+    public class TipoTecnicaMetadata
     {
-        public Guid UbicacionID { get; set; }
+        public Guid TipoTecnicaID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Requerido.")]
-        [StringLength(64)]
-        [Display(Name = "Ubicación")]
-        [Remote("EsUnico", "Ubicacion", HttpMethod = "POST", AdditionalFields = "UbicacionID", ErrorMessage = "Ya existe, intenta otro nombre.")]
+        [StringLength(255)]
+        [Display(Name = "Tipo de Técnica")]
+        [Remote("EsUnico", "TipoTecnica", HttpMethod = "POST", AdditionalFields = "TipoTecnicaID", ErrorMessage = "Ya existe, intenta otro nombre.")]
         public string Nombre { get; set; }
 
-        [StringLength(128)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
         [Display(Name = "Estado")]
         public bool Status { get; set; }
 
-        [StringLength(32)]
+        [StringLength(63)]
         public string Temp { get; set; }
-
     }
 }

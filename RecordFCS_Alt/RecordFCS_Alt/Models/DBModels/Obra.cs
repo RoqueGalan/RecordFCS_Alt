@@ -26,11 +26,6 @@ namespace RecordFCS_Alt.Models
         [ForeignKey("LetraFolio")]
         public int LetraFolioID { get; set; }
 
-        [ForeignKey("Coleccion")]
-        public Guid? ColeccionID { get; set; }
-
-
-
 
         public bool Status { get; set; }
 
@@ -42,8 +37,7 @@ namespace RecordFCS_Alt.Models
         //Virtuales
         public virtual TipoObra TipoObra { get; set; }
         public virtual LetraFolio LetraFolio { get; set; }
-        public virtual Coleccion Coleccion { get; set; }
-        //public virtual ICollection<Pieza> Piezas { get; set; }
+        public virtual ICollection<Pieza> Piezas { get; set; }
     }
 
 
@@ -67,7 +61,6 @@ namespace RecordFCS_Alt.Models
         //Llaves Foraneas
         public Guid TipoObraID { get; set; }
         public int LetraFolioID { get; set; }
-        public Guid? ColeccionID { get; set; }
 
 
 
@@ -75,7 +68,7 @@ namespace RecordFCS_Alt.Models
         public bool Status { get; set; }
 
 
-        [StringLength(32)]
+        [StringLength(63)]
         public string Temp { get; set; }
     }
 

@@ -135,23 +135,28 @@
     <Compile Include="Helpers\Alerta.cs" />
     <Compile Include="Helpers\HTMLHelpers.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DBModels\Autor.cs" />
+    <Compile Include="Models\DBModels\Atributos\AtributoPieza.cs" />
+    <Compile Include="Models\DBModels\Atributos\TecnicaPieza.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\Autor.cs" />
     <Compile Include="Models\DBModels\Atributo.cs" />
     <Compile Include="Models\DBModels\Atributos\AutorPieza.cs" />
-    <Compile Include="Models\DBModels\Atributos\Coleccion.cs" />
-    <Compile Include="Models\DBModels\Atributos\Imagen.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\Coleccion.cs" />
+    <Compile Include="Models\DBModels\Atributos\ImagenPieza.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\ListaValor.cs" />
     <Compile Include="Models\DBModels\LetraInventario.cs" />
     <Compile Include="Models\DBModels\Atributos\MedidaPieza.cs" />
     <Compile Include="Models\DBModels\MostrarAtributo.cs" />
     <Compile Include="Models\DBModels\Obra.cs" />
     <Compile Include="Models\DBModels\Pieza.cs" />
     <Compile Include="Models\DBModels\RecordFCSContext.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\Tecnica.cs" />
     <Compile Include="Models\DBModels\TipoAtributo.cs" />
-    <Compile Include="Models\DBModels\TipoMedida.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\SubCatalogos\TipoMedida.cs" />
     <Compile Include="Models\DBModels\TipoMostrar.cs" />
     <Compile Include="Models\DBModels\TipoObra.cs" />
     <Compile Include="Models\DBModels\TipoPieza.cs" />
-    <Compile Include="Models\DBModels\Atributos\Ubicacion.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\Ubicacion.cs" />
+    <Compile Include="Models\DBModels\Atributos\Catalogos\SubCatalogos\TipoTecnica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

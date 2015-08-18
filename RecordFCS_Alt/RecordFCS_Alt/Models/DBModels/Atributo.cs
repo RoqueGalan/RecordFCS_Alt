@@ -38,7 +38,7 @@ namespace RecordFCS_Alt.Models
     {
         public Guid AtributoID { get; set; }
 
-        [StringLength(64)]
+        [StringLength(127)]
         [Display(Name = "Nombre Alterno")]
         public string NombreAlterno { get; set; }
 
