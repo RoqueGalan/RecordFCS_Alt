@@ -1,24 +1,23 @@
 ﻿$(function () {
     $.ajaxSetup({ cache: false });
-    $("a[data-modal].openModal_Ubicacion").on("click", function (e) {
+    $("a[data-modal].openModal_Autor").on("click", function (e) {
 
         $('#miModalContenido').load(this.href, function () {
             $('#miModal').modal({
                 backdrop: 'static',
                 keyboard: true
             }, 'show');
-            bindForm_Ubicacion(this);
+            bindForm_Autor(this);
         });
         return false;
     });
 });
 
-function bindForm_Ubicacion(dialog) {
+function bindForm_Autor(dialog) {
     $('form', dialog).submit(function (e) {
         e.preventDefault();
 
         var validarOK = false;
-
 
         validarOK = $(this).validate().valid();
 
@@ -31,8 +30,8 @@ function bindForm_Ubicacion(dialog) {
                     if (result.success) {
                         $('#miModal').modal('hide');
 
-                        if ($('#renderListaUbicacion').length)
-                            $('#renderListaUbicacion').load(result.url); //  Campo que actualizara
+                        if ($('#renderListaAutor').length)
+                            $('#renderListaAutor').load(result.url); //  Campo que actualizara
                         else
                             window.location.reload();
 
@@ -40,7 +39,7 @@ function bindForm_Ubicacion(dialog) {
 
                     } else {
                         $('#miModalContenido').html(result);
-                        bindForm_Ubicacion(dialog);
+                        bindForm_Autor(dialog);
                     }
                 }
             });
@@ -48,8 +47,6 @@ function bindForm_Ubicacion(dialog) {
         return false;
     });
 }
-
-
 
 //Paginador cargar vista parcial en el div
 $(function () {
@@ -61,7 +58,7 @@ $(function () {
                 url: $(this).attr("href"),
                 type: 'GET',
                 success: function (result) {
-                    $('#renderListaUbicacion').html(result);
+                    $('#renderListaAutor').html(result);
                 }
             });
         }
@@ -82,7 +79,7 @@ $(function () {
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
-                $('#renderListaUbicacion').html(result);
+                $('#renderListaAutor').html(result);
             }
         });
         return false;

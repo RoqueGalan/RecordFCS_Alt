@@ -64,7 +64,7 @@ namespace RecordFCS_Alt.Controllers
             return View(obra);
         }
 
-        // GET: Obra/Edit/5
+        // GET: Obra/Editar/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -81,7 +81,7 @@ namespace RecordFCS_Alt.Controllers
             return View(obra);
         }
 
-        // POST: Obra/Edit/5
+        // POST: Obra/Editar/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -99,7 +99,7 @@ namespace RecordFCS_Alt.Controllers
             return View(obra);
         }
 
-        // GET: Obra/Delete/5
+        // GET: Obra/Eliminar/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -114,8 +114,8 @@ namespace RecordFCS_Alt.Controllers
             return View(obra);
         }
 
-        // POST: Obra/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Obra/Eliminar/5
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {

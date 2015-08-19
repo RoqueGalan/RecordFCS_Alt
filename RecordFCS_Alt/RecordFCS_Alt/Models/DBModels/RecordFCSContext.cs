@@ -25,10 +25,10 @@ namespace RecordFCS_Alt.Models
         public DbSet<Pieza> Piezas { get; set; }
 
         //Catalogos de Pieza
-        public DbSet<Coleccion> Colecciones { get; set; }
         public DbSet<Ubicacion> Ubicaciones { get; set; }
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Tecnica> Tecnicas { get; set; }
+        public DbSet<ListaValor> ListaValores { get; set; }
 
         //SubCatalogos de Pieza
         public DbSet<TipoMedida> TipoMedidas { get; set; }
@@ -39,6 +39,7 @@ namespace RecordFCS_Alt.Models
         public DbSet<ImagenPieza> ImagenPiezas { get; set; }
         public DbSet<MedidaPieza> MedidaPiezas { get; set; }
         public DbSet<TecnicaPieza> TecnicaPiezas { get; set; }
+        public DbSet<AtributoPieza> AtributoPiezas { get; set; }
 
 
 
@@ -60,6 +61,11 @@ namespace RecordFCS_Alt.Models
             modelBuilder.Entity<TipoTecnica>().
                 HasMany(a => a.Tecnicas).
                 WithRequired(b => b.TipoTecnica).
+                WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TipoObra>().
+                HasMany(a => a.Obras).
+                WithRequired(b => b.TipoObra).
                 WillCascadeOnDelete(false);
         }
     }

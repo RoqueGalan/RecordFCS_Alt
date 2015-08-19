@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RecordFCS_Alt.Models;
+using PagedList;
 
 namespace RecordFCS_Alt.Controllers
 {
@@ -20,14 +21,32 @@ namespace RecordFCS_Alt.Controllers
             return View();
         }
 
-        // GET: Ubicacion/Details/5
-        public ActionResult Lista()
+        // GET: Ubicacion/Lista
+        public ActionResult Lista(string FiltroActual, string Busqueda, int? Pagina)
         {
-            var lista = db.Ubicaciones.OrderBy(a => a.Nombre).ToList();
+            if (Busqueda != null) Pagina = 1;
+            else Busqueda = FiltroActual;
 
-            ViewBag.totalRegistros = lista.Count;
+            ViewBag.FiltroActual = Busqueda;
 
-            return PartialView("_Lista", lista);
+            var lista = db.Ubicaciones.Select(a=> a);
+
+            if (!String.IsNullOrEmpty(Busqueda))
+            {
+                Busqueda = Busqueda.ToLower();
+                lista = lista.Where(a => a.Nombre.ToLower().Contains(Busqueda));
+            }
+
+            lista = lista.OrderBy(a => a.Nombre);
+
+            //paginador
+            int registrosPorPagina = 25;
+            int pagActual = 1;
+            pagActual = Pagina.HasValue ? Convert.ToInt32(Pagina) : 1;
+
+            IPagedList<Ubicacion> listaPagina = lista.ToPagedList(pagActual, registrosPorPagina);
+
+            return PartialView("_Lista", listaPagina);
         }
 
         // GET: Ubicacion/Crear
@@ -50,7 +69,6 @@ namespace RecordFCS_Alt.Controllers
             var ubi = db.Ubicaciones.Select(a => new { a.Nombre, a.UbicacionID }).FirstOrDefault(a => a.Nombre == ubicacion.Nombre);
 
             if (ubi != null)
-                if (ubi.UbicacionID != ubicacion.UbicacionID)
                     ModelState.AddModelError("Nombre", "Nombre ya existe.");
 
 

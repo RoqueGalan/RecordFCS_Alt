@@ -56,6 +56,14 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -119,15 +127,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AtributoController.cs" />
+    <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ColeccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MostrarAtributoController.cs" />
     <Compile Include="Controllers\ObraController.cs" />
     <Compile Include="Controllers\TipoAtributoController.cs" />
+    <Compile Include="Controllers\TipoMedidaController.cs" />
     <Compile Include="Controllers\TipoMostrarController.cs" />
     <Compile Include="Controllers\TipoObraController.cs" />
     <Compile Include="Controllers\TipoPiezaController.cs" />
+    <Compile Include="Controllers\TipoTecnicaController.cs" />
     <Compile Include="Controllers\UbicacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -140,7 +150,6 @@
     <Compile Include="Models\DBModels\Atributos\Catalogos\Autor.cs" />
     <Compile Include="Models\DBModels\Atributo.cs" />
     <Compile Include="Models\DBModels\Atributos\AutorPieza.cs" />
-    <Compile Include="Models\DBModels\Atributos\Catalogos\Coleccion.cs" />
     <Compile Include="Models\DBModels\Atributos\ImagenPieza.cs" />
     <Compile Include="Models\DBModels\Atributos\Catalogos\ListaValor.cs" />
     <Compile Include="Models\DBModels\LetraInventario.cs" />
@@ -167,6 +176,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -184,11 +194,14 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\add.toolTip.js" />
+    <Content Include="Content\fonts\presidenciabase-webfont.ttf" />
+    <Content Include="Content\fonts\presidenciafina-webfont.ttf" />
+    <Content Include="Content\fonts\presidenciafirme-webfont.ttf" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\atributoLista.js" />
+    <Content Include="Scripts\autorLista.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\coleccionLista.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -259,11 +272,6 @@
     <Content Include="Views\Ubicacion\Index.cshtml" />
     <Content Include="Views\Ubicacion\_Editar.cshtml" />
     <Content Include="Views\Ubicacion\_Lista.cshtml" />
-    <Content Include="Views\Coleccion\_Crear.cshtml" />
-    <Content Include="Views\Coleccion\_Eliminar.cshtml" />
-    <Content Include="Views\Coleccion\Index.cshtml" />
-    <Content Include="Views\Coleccion\_Editar.cshtml" />
-    <Content Include="Views\Coleccion\_Lista.cshtml" />
     <Content Include="Views\Obra\Create.cshtml" />
     <Content Include="Views\Obra\Delete.cshtml" />
     <Content Include="Views\Obra\Details.cshtml" />
@@ -272,6 +280,21 @@
     <Content Include="Views\Obra\Registrar.cshtml" />
     <Content Include="Scripts\reg.tipoObraSelect.js" />
     <Content Include="Views\TipoPieza\_Registro_inputSelect.cshtml" />
+    <Content Include="Views\TipoMedida\Create.cshtml" />
+    <Content Include="Views\TipoMedida\Delete.cshtml" />
+    <Content Include="Views\TipoMedida\Details.cshtml" />
+    <Content Include="Views\TipoMedida\Edit.cshtml" />
+    <Content Include="Views\TipoMedida\Index.cshtml" />
+    <Content Include="Views\TipoTecnica\Create.cshtml" />
+    <Content Include="Views\TipoTecnica\Delete.cshtml" />
+    <Content Include="Views\TipoTecnica\Details.cshtml" />
+    <Content Include="Views\TipoTecnica\Edit.cshtml" />
+    <Content Include="Views\TipoTecnica\Index.cshtml" />
+    <Content Include="Views\Autor\_Crear.cshtml" />
+    <Content Include="Views\Autor\_Eliminar.cshtml" />
+    <Content Include="Views\Autor\Index.cshtml" />
+    <Content Include="Views\Autor\_Editar.cshtml" />
+    <Content Include="Views\Autor\_Lista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

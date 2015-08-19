@@ -25,7 +25,7 @@ namespace RecordFCS_Alt.Models
 
         //Virtuales
         public virtual ICollection<TipoPieza> TipoPiezas { get; set; }
-        //        public virtual ICollection<Obra> Obras { get; set; }
+        public virtual ICollection<Obra> Obras { get; set; }
 
 
     }

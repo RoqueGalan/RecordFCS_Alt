@@ -1,7 +1,8 @@
-﻿@model RecordFCS_Alt.Models.Coleccion
+﻿@model RecordFCS_Alt.Models.Autor
 @{
-    ViewBag.PagName = "Eliminar Colección";
-    ViewBag.CtrlName = Model.Nombre;
+    ViewBag.PagName = "Eliminar Autor";
+    ViewBag.CtrlName = Model.Nombre + " " + Model.Apellido;
+    ;
 }
 
 <div class="modal-header">
@@ -23,11 +24,12 @@
                 <b class="text-danger">
                     ELIMINAR
                 </b>
-                la Colección?
+                el Autor?
             </h3>
 
             <p>
                 @Html.DisplayFor(model => model.Nombre)
+                @Html.DisplayFor(model => model.Apellido)
             </p>
             <p>---</p>
             <p>Por favor confirma la acción a realizar:</p>
