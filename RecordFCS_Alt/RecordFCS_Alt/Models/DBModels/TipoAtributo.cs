@@ -40,7 +40,7 @@ namespace RecordFCS_Alt.Models
 
         //Virtuales
         public virtual ICollection<Atributo> Atributos { get; set; }
-
+        public virtual ICollection<ListaValor> ListaValores { get; set; }
     }
 
     public class TipoAtributoMetadata

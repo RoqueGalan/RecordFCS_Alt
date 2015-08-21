@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecordFCS_Alt.Models
 {
@@ -46,7 +47,7 @@ namespace RecordFCS_Alt.Models
         [Display(Name = "Clave")]
         public string ClaveSigla { get; set; }
 
-        [StringLength(511)]
+        [StringLength(2047)]
         [Display(Name = "Clave Descripción")]
         public string ClaveTexto { get; set; }
 
@@ -56,10 +57,18 @@ namespace RecordFCS_Alt.Models
 
 
         [Display(Name = "Descripción")]
+        [Required(AllowEmptyStrings = false)]
+        [Remote("EsUnico", "Tecnica", HttpMethod = "POST", AdditionalFields = "TipoTecnicaID, TecnicaPadreID, TecnicaID,", ErrorMessage = "Ya existe, intenta de nuevo.")]
         public string Descripcion { get; set; }
 
         [Display(Name = "Estado")]
         public bool Status { get; set; }
+
+
+        public Guid TipoTecnicaID { get; set; }
+
+        public Guid? TecnicaPadreID { get; set; }
+
 
         [StringLength(63)]
         public string Temp1 { get; set; }

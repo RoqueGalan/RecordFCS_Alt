@@ -78,14 +78,14 @@ namespace RecordFCS_Alt.Controllers
 
                 if (tipoPiezaPadre == null) return HttpNotFound();
 
-                lista = tipoPiezaPadre.TipoPiezasHijas.Where(a=> a.Status).OrderBy(a => a.Nombre);
+                lista = tipoPiezaPadre.TipoPiezasHijas.Where(a => a.Status).OrderBy(a => a.Nombre);
 
             }
 
 
             ViewBag.totalRegistros = lista.Count();
 
-            ViewBag.TipoPiezaID = new SelectList(lista.Select(a => new { a.TipoPiezaID, Nombre = a.Nombre + " - " + a.Descripcion}).ToList(), "TipoPiezaID", "Nombre");
+            ViewBag.TipoPiezaID = new SelectList(lista.Select(a => new { a.TipoPiezaID, Nombre = a.Nombre + " - " + a.Descripcion }).ToList(), "TipoPiezaID", "Nombre");
 
 
             return PartialView("_Registro_inputSelect");
@@ -293,32 +293,14 @@ namespace RecordFCS_Alt.Controllers
         {
             bool x = false;
 
-            //TipoObra tipoObra = db.TipoObras.Find(TipoObraID);
-            //if (tipoObra != null)
-            //{
-            //    if (TipoPiezaPadreID == null)
-            //    {
-            //        //creando una pieza en el root
-            //        var tpEnRoot = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
-            //        //crear y/o actualizar
-            //        x = tpEnRoot == null ? true : tpEnRoot.TipoPiezaID == TipoPiezaID ? true : false;
-            //    }
-            //    else
-            //    {
-            //        //creando una pieza en el padre
-            //        var tpEnPadre = tipoObra.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoPiezaPadreID == TipoPiezaPadreID);
-            //        //crear y/o actualizar
-            //        x = tpEnPadre == null ? true : tpEnPadre.TipoPiezaID == TipoPiezaID ? true : false;
-
-            //    }
-            //}
-
             var tp = db.TipoPiezas.SingleOrDefault(a => a.Nombre == Nombre && a.TipoObraID == TipoObraID && a.TipoPiezaPadreID == TipoPiezaPadreID);
             x = tp == null ? true : tp.TipoPiezaID == TipoPiezaID ? true : false;
 
 
             return Json(x);
         }
+
+
 
 
         protected override void Dispose(bool disposing)

@@ -10,22 +10,33 @@ $(function () {
         });
 
         if (strSelecto != "" || strSelecto != 0) {
-            var myUrl = '@Url.Action("RegistroFormulario", "Atributo")';
+            var myUrl = '/Atributo/RegistroFormulario';
 
-            //$('#renderIcono').html('' +
-            //            '<div class="text-center">' +
-            //                '<span class="fa fa-8x fa-spinner fa-pulse text-muted"></span>' +
-            //                '<p>' +
-            //                    '<i class="text-muted">' +
-            //                        'Por favor espera, se estan extrayendo los valores de la base de datos...' +
-            //                    '</i>' +
-            //                '</p>' +
-            //            '</div>');
+            $('#renderIconoLoading').html('' +
+                '<div class="progress">' +
+                    '<div class="progress-bar progress-bar-striped active bar-loading" role="progressbar"' +
+                    'aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">' +
+                        'Espere por favor, procesando la solicitud...' +
+                    '</div>' +
+                '</div>');
+
+            var bar = $('.bar-loading');
+            $(function () {
+                $(bar).each(function () {
+                    bar_width = $(this).attr('aria-valuenow');
+                    $(this).width(bar_width + '%');
+                });
+            }).delay(800);
+
+
+           
 
             $.ajax({
                 url: myUrl,
                 type: "POST",
                 data: { id: strSelecto },
+            
+                
                 success: function (result) {
 
                     //$('#renderIcono').html('');

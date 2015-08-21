@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RecordFCS_Alt.Models;
+using PagedList;
 
 namespace RecordFCS_Alt.Controllers
 {
@@ -20,15 +21,52 @@ namespace RecordFCS_Alt.Controllers
             return View();
         }
 
-        // GET: TipoTecnica/Lista
-        public ActionResult Lista()
+
+        public ActionResult Detalles(Guid? id)
         {
-            var lista = db.TipoTecnicas.OrderBy(a => a.Nombre).ToList();
-
-            ViewBag.totalRegistros = lista.Count;
-
-            return PartialView("_Lista", lista);
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            TipoTecnica tipoTecnica = db.TipoTecnicas.Find(id);
+            if (tipoTecnica == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Detalles", tipoTecnica);
         }
+
+
+
+
+        // GET: TipoTecnica/Lista
+        public ActionResult Lista(string FiltroActual, string Busqueda, int? Pagina)
+        {
+            if (Busqueda != null) Pagina = 1;
+            else Busqueda = FiltroActual;
+
+            ViewBag.FiltroActual = Busqueda;
+
+            var lista = db.TipoTecnicas.Select(a => a);
+
+            if (!String.IsNullOrEmpty(Busqueda))
+            {
+                Busqueda = Busqueda.ToLower();
+                lista = lista.Where(a => a.Nombre.ToLower().Contains(Busqueda));
+            }
+
+            lista = lista.OrderBy(a => a.Nombre);
+
+            //paginador
+            int registrosPorPagina = 25;
+            int pagActual = 1;
+            pagActual = Pagina.HasValue ? Convert.ToInt32(Pagina) : 1;
+
+            IPagedList<TipoTecnica> listaPagina = lista.ToPagedList(pagActual, registrosPorPagina);
+
+            return PartialView("_Lista", listaPagina);
+        }
+
 
         // GET: TipoTecnica/Crear
         public ActionResult Crear()

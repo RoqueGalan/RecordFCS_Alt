@@ -1,51 +1,26 @@
-﻿@model IEnumerable<RecordFCS_Alt.Models.TipoTecnica>
-
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Tipo de Técnicas";
 }
 
-<h2>Index</h2>
+<h2>
+    CATALOGO
+    <i>@ViewBag.Title</i>
+</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Temp)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Temp)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TipoTecnicaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TipoTecnicaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TipoTecnicaID })
-        </td>
-    </tr>
-}
+<ol class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("Mantenimiento de catálogos", "Index", "TipoAtributo")</li>
+    <li class="active">@ViewBag.Title</li>
+</ol>
 
-</table>
+
+<!-- Campo que se reemplaza-->
+<div id="renderListaTipoTecnica">
+    @{ Html.RenderAction("Lista", "TipoTecnica"); }
+</div>
+
+
+
+<script src="~/Scripts/add.toolTip.js"></script>
+

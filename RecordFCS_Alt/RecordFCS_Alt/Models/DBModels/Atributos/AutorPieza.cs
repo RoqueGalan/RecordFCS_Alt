@@ -20,6 +20,8 @@ namespace RecordFCS_Alt.Models
         [ForeignKey("Autor")]
         public Guid AutorID { get; set; }
 
+        public bool esPrincipal { get; set; }
+        public string Prefijo { get; set; }
         public bool Status { get; set; }
 
         //Virtuales
@@ -31,5 +33,11 @@ namespace RecordFCS_Alt.Models
     {
         [Display(Name = "Estado")]
         public bool Status { get; set; }
+
+        [Display(Name = "Principal")]
+        public bool esPrincipal { get; set; }
+        
+        [Display(Name = "Prefijo")]
+        public string Prefijo { get; set; }
     }
 }

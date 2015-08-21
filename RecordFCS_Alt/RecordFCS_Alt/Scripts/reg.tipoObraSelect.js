@@ -13,6 +13,10 @@ $(function () {
 			strSelecto += $(this)[0].value;
 		});
 
+		$('#renderAtributosRequeridos').html('');
+
+
+
 		if (strSelecto != "" || strSelecto != 0) {
 			var myUrl = '/TipoPieza/ListaSelect';
 

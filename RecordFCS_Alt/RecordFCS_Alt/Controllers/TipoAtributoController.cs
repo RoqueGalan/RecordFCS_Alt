@@ -22,7 +22,7 @@ namespace RecordFCS_Alt.Controllers
 
         public ActionResult Lista()
         {
-            var lista = db.TipoAtributos.OrderBy(a => a.Nombre).ToList();
+            var lista = db.TipoAtributos.OrderBy(a => a.Orden).ToList();
 
             ViewBag.totalRegistros = lista.Count;
 
@@ -30,19 +30,20 @@ namespace RecordFCS_Alt.Controllers
         }
 
         //// GET: TipoAtributo/Detalles/5
-        //public ActionResult Detalles(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    TipoAtributo tipoAtributo = db.TipoAtributos.Find(id);
-        //    if (tipoAtributo == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(tipoAtributo);
-        //}
+        public ActionResult Detalles(Guid? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            TipoAtributo tipoAtributo = db.TipoAtributos.Find(id);
+
+            if (tipoAtributo == null) return HttpNotFound();
+            if (!tipoAtributo.EsLista) return HttpNotFound();
+
+
+
+
+            return View(tipoAtributo);
+        }
 
         // GET: TipoAtributo/Crear
         public ActionResult Crear()
@@ -190,6 +191,7 @@ namespace RecordFCS_Alt.Controllers
 
             return Json(x);
         }
+
 
         protected override void Dispose(bool disposing)
         {

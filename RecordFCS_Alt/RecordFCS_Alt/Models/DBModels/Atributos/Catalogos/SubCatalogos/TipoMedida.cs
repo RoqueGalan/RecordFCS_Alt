@@ -26,7 +26,7 @@ namespace RecordFCS_Alt.Models
         public virtual ICollection<MedidaPieza> Medidas { get; set; }
     }
 
-    class TipoMedidaMetadata
+    public class TipoMedidaMetadata
     {
         public Guid TipoMedidaID { get; set; }
 
