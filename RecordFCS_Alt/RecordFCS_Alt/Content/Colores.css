@@ -1,0 +1,193 @@
+﻿  .waves-effect.waves-dorado .waves-ripple {
+    background-color: rgba(192, 168, 126, 0.75); }
+
+  .materialize-dorado {
+  background-color: #c0a87e !important; }
+
+.materialize-dorado-text {
+  color: #c0a87e !important; }
+
+
+.dorado {
+  background-color: #c0a87e !important;
+  color: black;
+}
+
+.dorado-text {
+
+
+  color: #c0a87e !important; }
+
+.materialize-dorado.lighten-5 {
+  background-color: #fdeaeb !important; }
+
+.materialize-dorado-text.text-lighten-5 {
+  color: #fdeaeb !important; }
+
+.materialize-dorado.lighten-4 {
+  background-color: #f8c1c3 !important; }
+
+.materialize-dorado-text.text-lighten-4 {
+  color: #f8c1c3 !important; }
+
+.materialize-dorado.lighten-3 {
+  background-color: #f3989b !important; }
+
+.materialize-dorado-text.text-lighten-3 {
+  color: #f3989b !important; }
+
+.materialize-dorado.lighten-2 {
+  background-color: #ee6e73 !important; }
+
+.materialize-dorado-text.text-lighten-2 {
+  color: #ee6e73 !important; }
+
+.materialize-dorado.lighten-1 {
+  background-color: #ea454b !important; }
+
+.materialize-dorado-text.text-lighten-1 {
+  color: #ea454b !important; }
+
+
+
+.materialize-dorado.darken-1 {
+  background-color: #d0181e !important; }
+
+.materialize-dorado-text.text-darken-1 {
+  color: #d0181e !important; }
+
+.materialize-dorado.darken-2 {
+  background-color: #b9151b !important; }
+
+.materialize-dorado-text.text-darken-2 {
+  color: #b9151b !important; }
+
+.materialize-dorado.darken-3 {
+  background-color: #a21318 !important; }
+
+.materialize-dorado-text.text-darken-3 {
+  color: #a21318 !important; }
+
+.materialize-dorado.darken-4 {
+  background-color: #8b1014 !important; }
+
+.materialize-dorado-text.text-darken-4 {
+  color: #8b1014 !important; }
+
+.dorado.lighten-5 {
+  background-color: #FFEBEE !important; }
+
+.dorado-text.text-lighten-5 {
+  color: #FFEBEE !important; }
+
+.dorado.lighten-4 {
+  background-color: #FFCDD2 !important; }
+
+.dorado-text.text-lighten-4 {
+  color: #FFCDD2 !important; }
+
+.dorado.lighten-3 {
+  background-color: #EF9A9A !important; }
+
+.dorado-text.text-lighten-3 {
+  color: #EF9A9A !important; }
+
+.dorado.lighten-2 {
+  background-color: #E57373 !important; }
+
+.dorado-text.text-lighten-2 {
+  color: #E57373 !important; }
+
+.dorado.lighten-1 {
+  background-color: #EF5350 !important; }
+
+.dorado-text.text-lighten-1 {
+  color: #EF5350 !important; }
+
+
+
+.dorado.darken-1 {
+  background-color: #E53935 !important; }
+
+.dorado-text.text-darken-1 {
+  color: #E53935 !important; }
+
+.dorado.darken-2 {
+  background-color: #D32F2F !important; }
+
+.dorado-text.text-darken-2 {
+  color: #D32F2F !important; }
+
+.dorado.darken-3 {
+  background-color: #C62828 !important; }
+
+.dorado-text.text-darken-3 {
+  color: #C62828 !important; }
+
+.dorado.darken-4 {
+  background-color: #B71C1C !important; }
+
+.dorado-text.text-darken-4 {
+  color: #B71C1C !important; }
+
+.dorado.accent-1 {
+  background-color: #FF8A80 !important; }
+
+.dorado-text.text-accent-1 {
+  color: #FF8A80 !important; }
+
+.dorado.accent-2 {
+  background-color: #FF5252 !important; }
+
+.dorado-text.text-accent-2 {
+  color: #FF5252 !important; }
+
+.dorado.accent-3 {
+  background-color: #FF1744 !important; }
+
+.dorado-text.text-accent-3 {
+  color: #FF1744 !important; }
+
+.dorado.accent-4 {
+  background-color: #D50000 !important; }
+
+.dorado-text.text-accent-4 {
+  color: #D50000 !important; }
+
+
+
+
+
+
+
+
+
+/* formulario */
+
+/* label color */
+   /*.input-field label {
+     color: #000;
+   }*/
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #c0a87e;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #c0a87e;
+     box-shadow: 0 1px 0 0 #c0a87e;
+   }
+   /* valid color */
+   /*.input-field input[type=text].valid {
+     border-bottom: 1px solid #c0a87e;
+     box-shadow: 0 1px 0 0 #c0a87e;
+   }*/
+   /* invalid color */
+   /*.input-field input[type=text].invalid {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }*/
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #c0a87e;
+   }

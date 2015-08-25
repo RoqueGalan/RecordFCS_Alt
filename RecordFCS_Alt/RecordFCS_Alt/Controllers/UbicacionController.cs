@@ -50,12 +50,15 @@ namespace RecordFCS_Alt.Controllers
         }
 
         // GET: Ubicacion/Crear
-        public ActionResult Crear()
+        public ActionResult Crear(bool EsRegistroObra = false)
         {
             var ubicacion = new Ubicacion()
             {
                 Status = true
             };
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
+
 
             return PartialView("_Crear", ubicacion);
         }
@@ -63,7 +66,7 @@ namespace RecordFCS_Alt.Controllers
         // POST: Ubicacion/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear([Bind(Include = "UbicacionID,Nombre,Descripcion,Status,Temp")] Ubicacion ubicacion)
+        public ActionResult Crear([Bind(Include = "UbicacionID,Nombre,Descripcion,Status,Temp")] Ubicacion ubicacion, bool EsRegistroObra = false)
         {
             //validar el nombre
             var ubi = db.Ubicaciones.Select(a => new { a.Nombre, a.UbicacionID }).FirstOrDefault(a => a.Nombre == ubicacion.Nombre);
@@ -80,9 +83,22 @@ namespace RecordFCS_Alt.Controllers
 
                 AlertaSuccess(string.Format("Ubicación: <b>{0}</b> creada.", ubicacion.Nombre), true);
 
-                string url = Url.Action("Lista", "Ubicacion");
+                
+
+                if (EsRegistroObra)
+                {
+                    return Json(new { success = true, nombre = ubicacion.Nombre, ubicacionID = ubicacion.UbicacionID });
+
+                }
+                else
+                {
+                   string url = Url.Action("Lista", "Ubicacion");
                 return Json(new { success = true, url = url });
+                }
+                
             }
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
 
             return PartialView("_Crear", ubicacion);
         }
@@ -167,6 +183,39 @@ namespace RecordFCS_Alt.Controllers
             string url = Url.Action("Lista", "Ubicacion");
             return Json(new { success = true, url = url });
         }
+
+
+        public ActionResult GenerarLista(string Filtro = "", string TipoLista = "option")
+        {
+
+            List<Ubicacion> lista = db.Ubicaciones.Select(a => a).Where(a => a.Status).ToList();
+
+            if (!String.IsNullOrEmpty(Filtro))
+            {
+                Filtro = Filtro.ToLower();
+                lista = lista.Where(a => a.Nombre.ToLower().Contains(Filtro)).ToList();
+            }
+
+            lista = lista.Select(a => new Ubicacion() { UbicacionID = a.UbicacionID, Nombre = a.Nombre }).OrderBy(a => a.Nombre).ToList();
+
+
+            switch (TipoLista)
+            {
+                case "Select":
+                case "select":
+                case "SELECT":
+
+                    ViewBag.UbicacionId = new SelectList(lista, "UbicacionID", "Nombre");
+                    return PartialView("_ListaSelect");
+
+                default:
+                    return Json(lista, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+
 
         public JsonResult EsUnico(string Nombre, Guid? UbicacionID)
         {

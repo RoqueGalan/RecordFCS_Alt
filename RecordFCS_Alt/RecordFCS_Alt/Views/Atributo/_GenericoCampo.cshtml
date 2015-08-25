@@ -35,7 +35,7 @@ else
     </div>
 
 
-    
+
     <script type="text/javascript">
 
         $(function () {
@@ -79,7 +79,7 @@ else
 
                     var btnDel = $('#quitar_' + id_temp);
 
-                    btnDel.addClass("quitarLiCampGen");
+                    btnDel.addClass("quitarLiCampGen_" + attID);
                     btnDel.tooltip();
 
                     input.attr('required', false);
@@ -98,16 +98,13 @@ else
         });
 
 
-        $(document.body).on("click", '.quitarLiCampGen', function (e) {
+        $(document.body).on("click", '.quitarLiCampGen_' + '@AtributoID', function (e) {
             var attID = '@AtributoID';
             var ul = $('#listaValores_' + attID);
             var input = $('#id_' + attID);
 
-            var cadena = $(this).attr("id");
+            $(this).parent().remove()
 
-            var c = cadena.split("quitar_");
-
-            $("#li_" + c[1]).remove();
 
             if (ul.html() == "") {
                 input.attr('required', true);

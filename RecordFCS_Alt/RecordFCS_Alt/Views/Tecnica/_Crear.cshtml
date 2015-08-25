@@ -24,6 +24,9 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Status)
             @Html.HiddenFor(model => model.TipoTecnicaID)
+            @Html.Hidden("EsRegistroObra", (bool)ViewBag.EsRegistroObra)
+
+
 
 
             <div class="form-group">

@@ -102,7 +102,7 @@ else
         */
 
         if ($btn.attr("name") == "Agregar") {
-            alert("entro a agregar");
+            //alert("entro a agregar");
 
             var myUrl = '@Url.Action("Crear", "ListaValor", new { id = @TipoAtributoID, EsRegistroObra = true })';
 
@@ -387,30 +387,144 @@ else
 
     </script>
 
-    
-    
+
+
     <script type="text/javascript">
 
-        $('#id_@AtributoID').change(function (e) {
-            
+        $('#id_@AtributoID').on("change", function (e) {
+            event.preventDefault();
+
+            var attID = '@AtributoID';
             var $inputSelect = $(this);
+            var ul = $('#listaValores_' + attID);
+            var $inputBuscar = $('#buscar_' + attID);
 
             var $itemSelected = $inputSelect.find('option:selected');
 
-            if ($itemSelected.val() != "") {
-
-                alert("algo: " + $itemSelected.text());
-            }
-            else
-            {
+            if ($itemSelected.val() == "") {
                 alert("vacio: " + $itemSelected.text());
+
+            }
+            else {
+                //alert("algo: " + $itemSelected.text());
+
+                var id_temp = 'id_' + attID + '.' + $itemSelected.val();
+
+                var existe = false;
+
+                var i = ul.children().length;
+                ul.find('li').each(function (i, li) {
+                    if ($(this).attr('id') == 'li_' + id_temp) {
+                        existe = true;
+                        //alert($(li).attr("id"));
+                    }
+                });
+
+                if (!existe) {
+                    var li = $('<li>', {
+                        'class': 'media',
+                        id: "li_" + id_temp,
+
+                    });
+
+
+                    var li_div = $('<div>', {
+                        'class': 'media-body',
+                        text: $itemSelected.text()
+                    })
+
+                    var li_div_input = $('<input />', {
+                        type: 'hidden',
+                        id: id_temp,
+                        value: $itemSelected.val()
+                    })
+
+                    var li_span = $('<span>', {
+                        id: 'quitar_' + id_temp,
+                        'class': 'btn btn-xs btn-danger media-right',
+                        'data-toggle': 'tooltip',
+                        title: "Quitar valor"
+                    });
+
+                    var li_span_span = $('<span>', {
+                        'class': 'fa fa-times'
+                    });
+
+
+                    li_div.append(li_div_input);
+
+                    li.append(li_div);
+
+                    li_span.append(li_span_span);
+
+                    li.append(li_span);
+
+
+                    ul.append(li);
+
+                    
+
+                    li_span.addClass("quitarLiListaGen_" + attID);
+                    li_span.tooltip();
+                }
+
+
+
+
+
+                //var stringHTML = '  <li class="media" id = "li_' + id_temp + '">';
+                //stringHTML += '         <div class="media-body">';
+                //stringHTML += '             <input type="hidden" ' + 'id="' + id_temp + '"  value = "' + $itemSelected.val() + '"/>';
+                //stringHTML +=                   $itemSelected.text();
+                //stringHTML += '             </div>' ;
+                //stringHTML += '             <span id="quitar_' + id_temp + '" class="btn btn-xs btn-danger media-right" data-toggle="tooltip" title="Quitar valor"><span class="fa fa-times"></span></span>';
+                //stringHTML += '     </li>';
+
+
+                //ul.append(stringHTML);
+
+
+
+
+
+
+
+
+
+                $inputBuscar.val('');
+                $inputSelect.val('');
+
+
+
+
             }
 
-
+            if (ul.html() == "") {
+                $inputSelect.attr('required', true);
+            }
+            else {
+                $inputSelect.attr('required', false);
+            }
 
 
         });
 
+        $(document.body).on("click", '.quitarLiListaGen_' + '@AtributoID', function (e) {
+            event.preventDefault();
 
+            var attID = '@AtributoID';
+            var ul = $('#listaValores_' + attID);
+            var $inputSelect = $('#id_' + attID);
+
+            $(this).parent().remove()
+
+            if (ul.html() == "") {
+                $inputSelect.attr('required', true);
+            }
+            else {
+                $inputSelect.attr('required', false);
+            }
+
+        });
     </script>
 }

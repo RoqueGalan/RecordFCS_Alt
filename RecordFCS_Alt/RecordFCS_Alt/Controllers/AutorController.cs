@@ -53,12 +53,15 @@ namespace RecordFCS_Alt.Controllers
         }
 
         // GET: Autor/Crear
-        public ActionResult Crear()
+        public ActionResult Crear(bool EsRegistroObra = false)
         {
             var autor = new Autor()
             {
                 Status = true
             };
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
+
 
             return PartialView("_Crear", autor);
         }
@@ -66,7 +69,7 @@ namespace RecordFCS_Alt.Controllers
         // POST: Autor/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear([Bind(Include = "AutorID,Nombre,Apellido,LugarNacimiento,AnoNacimiento,LugarMuerte,AnoMuerte,Observaciones,Status,Temp")] Autor autor)
+        public ActionResult Crear([Bind(Include = "AutorID,Nombre,Apellido,LugarNacimiento,AnoNacimiento,LugarMuerte,AnoMuerte,Observaciones,Status,Temp")] Autor autor, bool EsRegistroObra)
         {
             //validar el nombre
             var aut = db.Autores.Select(a => new { a.Nombre, a.Apellido, a.AutorID }).FirstOrDefault(a => a.Nombre == autor.Nombre && a.Apellido == autor.Apellido);
@@ -82,9 +85,19 @@ namespace RecordFCS_Alt.Controllers
 
                 AlertaSuccess(string.Format("Autor: <b>{0} {1}</b> creado.", autor.Nombre, autor.Apellido), true);
 
-                string url = Url.Action("Lista", "Autor");
-                return Json(new { success = true, url = url });
+                if (EsRegistroObra)
+                {
+                    return Json(new { success = true, nombre = autor.Nombre + " " + autor.Apellido, autorID = autor.AutorID });
+                }
+                else
+                {
+                    string url = Url.Action("Lista", "Autor");
+                    return Json(new { success = true, url = url });
+                }
+
             }
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
 
             return PartialView("_Crear", autor);
         }
@@ -175,6 +188,38 @@ namespace RecordFCS_Alt.Controllers
             string url = Url.Action("Lista", "Autor");
             return Json(new { success = true, url = url });
         }
+
+
+        public ActionResult GenerarLista(string Filtro = "", string TipoLista = "option")
+        {
+
+            List<Autor> lista = db.Autores.Select(a => a).Where(a => a.Status).ToList();
+
+
+            if (!String.IsNullOrEmpty(Filtro))
+            {
+                Filtro = Filtro.ToLower();
+                lista = lista.Where(a => a.Nombre.ToLower().Contains(Filtro)).ToList();
+            }
+
+            lista = lista.Select(a => new Autor() { AutorID = a.AutorID, Nombre = a.Nombre + " " + a.Apellido }).OrderBy(a => a.Nombre).ToList();
+
+
+            switch (TipoLista)
+            {
+                case "Select":
+                case "select":
+                case "SELECT":
+                    ViewBag.AutorID = new SelectList(lista, "AutorID", "Nombre");
+                    return PartialView("_ListaSelect");
+
+                default:
+
+                    return Json(lista, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
 
         public JsonResult EsUnico(string Nombre, string Apellido, Guid? AutorID)
         {

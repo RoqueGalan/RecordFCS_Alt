@@ -61,7 +61,7 @@ namespace RecordFCS_Alt.Controllers
         }
 
         // GET: Tecnica/Crear
-        public ActionResult Crear(Guid? id)
+        public ActionResult Crear(Guid? id, bool EsRegistroObra = false)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,7 +82,9 @@ namespace RecordFCS_Alt.Controllers
             ViewBag.total = lista.Count();
 
             ViewBag.TecnicaPadreID = new SelectList(lista, "TecnicaID", "Nombre");
-            
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
+
 
             return PartialView("_Crear", tecnica);
         }
@@ -90,7 +92,7 @@ namespace RecordFCS_Alt.Controllers
         // POST: Tecnica/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear([Bind(Include = "TecnicaID,ClaveSigla,ClaveTexto,MatriculaSigla,Descripcion,Status,TipoTecnicaID,TecnicaPadreID,Temp1,Temp2")] Tecnica tecnica)
+        public ActionResult Crear([Bind(Include = "TecnicaID,ClaveSigla,ClaveTexto,MatriculaSigla,Descripcion,Status,TipoTecnicaID,TecnicaPadreID,Temp1,Temp2")] Tecnica tecnica, bool EsRegistroObra = false)
         {
             var tec = db.Tecnicas.Select(a => new { a.Descripcion, a.TipoTecnicaID, a.TecnicaID, a.TecnicaPadreID }).FirstOrDefault(a => a.Descripcion == tecnica.Descripcion && a.TipoTecnicaID == tecnica.TipoTecnicaID && a.TecnicaPadreID == tecnica.TecnicaPadreID);
 
@@ -107,8 +109,17 @@ namespace RecordFCS_Alt.Controllers
 
                 AlertaSuccess(string.Format("Técnica: <b>{0}</b> creada.", tecnica.Descripcion), true);
 
-                string url = Url.Action("Lista", "Tecnica", new { id = tecnica.TipoTecnicaID });
-                return Json(new { success = true, url = url });
+                if (EsRegistroObra)
+                {
+                    return Json(new { success = true, descripcion = tecnica.Descripcion, tecnicaID = tecnica.TecnicaID, tipoTecnicaID = tecnica.TipoTecnicaID });
+
+                }
+                else
+                {
+                    string url = Url.Action("Lista", "Tecnica", new { id = tecnica.TipoTecnicaID });
+                    return Json(new { success = true, url = url });
+                }
+                
             }
 
             var ttecnica = db.TipoTecnicas.Find(tecnica.TipoTecnicaID);
@@ -118,6 +129,9 @@ namespace RecordFCS_Alt.Controllers
             ViewBag.total = lista.Count();
 
             ViewBag.TecnicaPadreID = new SelectList(lista, "TecnicaID", "Nombre", tecnica.TecnicaPadreID);
+
+            ViewBag.EsRegistroObra = EsRegistroObra;
+
 
             return PartialView("_Crear", tecnica);
             
@@ -240,6 +254,48 @@ namespace RecordFCS_Alt.Controllers
 
 
             return Json(x);
+        }
+
+
+        public ActionResult GenerarLista(Guid? id, string Filtro = "", string TipoLista = "option")
+        {
+
+
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            TipoTecnica tipoTecnica = db.TipoTecnicas.Find(id);
+
+            if (tipoTecnica == null) return HttpNotFound();
+
+            List<Tecnica> lista = tipoTecnica.Tecnicas.Select(a => a).Where(a => a.Status && !String.IsNullOrWhiteSpace(a.Descripcion)).ToList();
+
+            if (!String.IsNullOrEmpty(Filtro))
+            {
+                Filtro = Filtro.ToLower();
+                lista = lista.Where(a => a.Descripcion.ToLower().Contains(Filtro)).ToList();
+            }
+
+            lista = lista.Select(a => new Tecnica() { TecnicaID = a.TecnicaID, Descripcion = a.Descripcion, TipoTecnicaID = a.TipoTecnicaID }).OrderBy(a => a.Descripcion).ToList();
+
+
+            switch (TipoLista)
+            {
+                case "Select":
+                case "select":
+                case "SELECT":
+
+
+                    ViewBag.ListaValorID = new SelectList(lista, "TecnicaID", "Descripcion");
+                    ViewBag.TipoTecnicaID = tipoTecnica.TipoTecnicaID;
+
+                    return PartialView("_ListaSelect");
+
+
+                default:
+
+                    return Json(lista, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
 
