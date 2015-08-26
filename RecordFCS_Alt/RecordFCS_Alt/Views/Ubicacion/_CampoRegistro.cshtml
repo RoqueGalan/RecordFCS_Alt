@@ -26,15 +26,15 @@
     </span>
 
 
-</div>
 
+</div>
+@Html.ValidationMessage("id_" + AtributoID, new { @class = "text-danger" })
 
 
 
 <script type="text/javascript">
 
     $('#btnAccion_@AtributoID').on("click", function (e) {
-
         var attID = '@AtributoID';
         var tipoAttID = '@TipoAtributoID';
         var $inputSelect = $('#id_' + attID);
@@ -82,7 +82,6 @@
                 var attID = '@AtributoID';
 
                 $('form', dialog).submit(function (e) {
-                    e.preventDefault();
 
                     var validarOK = false;
 
@@ -157,7 +156,6 @@
     });
 
     $('#checkAdd_@AtributoID').on("click", function (e) {
-
         var attID = '@AtributoID';
         var $btnCheck = $('#checkAdd_' + attID);
         var $btn = $('#btnAccion_@AtributoID');

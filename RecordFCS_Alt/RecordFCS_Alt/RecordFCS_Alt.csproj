@@ -131,10 +131,13 @@
     <Compile Include="Controllers\AutorPiezaController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagenPiezaController.cs" />
     <Compile Include="Controllers\LetraFolioController.cs" />
     <Compile Include="Controllers\ListaValorController.cs" />
+    <Compile Include="Controllers\MedidaPiezaController.cs" />
     <Compile Include="Controllers\MostrarAtributoController.cs" />
     <Compile Include="Controllers\ObraController.cs" />
+    <Compile Include="Controllers\PiezaController.cs" />
     <Compile Include="Controllers\TecnicaController.cs" />
     <Compile Include="Controllers\TipoAtributoController.cs" />
     <Compile Include="Controllers\TipoMedidaController.cs" />
@@ -337,6 +340,23 @@
     <Content Include="Views\Ubicacion\_CampoRegistro.cshtml" />
     <Content Include="Views\Tecnica\_CampoRegistro.cshtml" />
     <Content Include="Views\Tecnica\_ListaSelect.cshtml" />
+    <Content Include="Views\MedidaPieza\Create.cshtml" />
+    <Content Include="Views\MedidaPieza\Delete.cshtml" />
+    <Content Include="Views\MedidaPieza\Details.cshtml" />
+    <Content Include="Views\MedidaPieza\Edit.cshtml" />
+    <Content Include="Views\MedidaPieza\Index.cshtml" />
+    <Content Include="Views\TipoMedida\_CampoRegistro.cshtml" />
+    <Content Include="Views\ImagenPieza\Create.cshtml" />
+    <Content Include="Views\ImagenPieza\Delete.cshtml" />
+    <Content Include="Views\ImagenPieza\Details.cshtml" />
+    <Content Include="Views\ImagenPieza\Edit.cshtml" />
+    <Content Include="Views\ImagenPieza\Index.cshtml" />
+    <Content Include="Views\ImagenPieza\_CampoRegistro.cshtml" />
+    <Content Include="Views\Pieza\Create.cshtml" />
+    <Content Include="Views\Pieza\Delete.cshtml" />
+    <Content Include="Views\Pieza\Details.cshtml" />
+    <Content Include="Views\Pieza\Edit.cshtml" />
+    <Content Include="Views\Pieza\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

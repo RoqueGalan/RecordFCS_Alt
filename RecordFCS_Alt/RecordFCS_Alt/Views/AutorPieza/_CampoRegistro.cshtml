@@ -6,6 +6,8 @@
     Guid TipoAtributoID = ViewBag.TipoAtributoID;
     string TipoInput = ViewBag.TipoInput;
     string NombreAtt = ViewBag.NombreAtt;
+    SelectList ListaAutoresID = (SelectList)ViewBag.AutorID;
+
 }
 
 
@@ -13,14 +15,14 @@
 <div class="well">
 
     <div class="input-group">
-        @Html.DropDownList("AutorID", null, "- Elije una opción -", htmlAttributes: new { id = "id_" + AtributoID, name = "id_" + AtributoID, @class = "form-control", required = "required" })
+        @Html.DropDownList("id_" + AtributoID, ListaAutoresID, "- Elije una opción -", htmlAttributes: new { @class = "form-control", required = "required" })
 
         <span class="input-group-addon">        </span>
 
-        <input id="buscar_@AtributoID" name="buscar_@AtributoID" type="text" placeholder="Buscar autor" class="form-control" />
+        <input id="buscar_@AtributoID" type="text" placeholder="Buscar autor" class="form-control" />
 
         <span class="input-group-addon">
-            <input type="checkbox" id="checkAdd_@AtributoID" name="checkAdd_@AtributoID" class="btnCheckAdd" data-toggle="tooltip" data-title="Buscar/Guardar">
+            <input type="checkbox" id="checkAdd_@AtributoID" class="btnCheckAdd" data-toggle="tooltip" data-title="Buscar/Guardar">
         </span>
 
 
@@ -30,6 +32,9 @@
 
 
     </div>
+
+    @Html.ValidationMessage("id_" + AtributoID, new { @class = "text-danger" })
+
 
     <p>Lista de autores:</p>
     <ul id="listaValores_@AtributoID" class="media-list"></ul>
@@ -41,6 +46,7 @@
 <script type="text/javascript">
 
     $('#btnAccion_@AtributoID').on("click", function (e) {
+
 
         var attID = '@AtributoID';
         var tipoAttID = '@TipoAtributoID';
@@ -89,7 +95,6 @@
                 var attID = '@AtributoID';
 
                 $('form', dialog).submit(function (e) {
-                    e.preventDefault();
 
                     var validarOK = false;
 
@@ -166,6 +171,7 @@
 
     $('#checkAdd_@AtributoID').on("click", function (e) {
 
+
         var attID = '@AtributoID';
         var $btnCheck = $('#checkAdd_' + attID);
         var $btn = $('#btnAccion_@AtributoID');
@@ -200,7 +206,6 @@
 <script type="text/javascript">
 
     $('#id_@AtributoID').on("change", function (e) {
-        event.preventDefault();
 
         var attID = '@AtributoID';
         var $inputSelect = $(this);
@@ -210,13 +215,13 @@
         var $itemSelected = $inputSelect.find('option:selected');
 
         if ($itemSelected.val() == "") {
-            alert("vacio: " + $itemSelected.text());
+            //alert("vacio: " + $itemSelected.text());
 
         }
         else {
             //alert("algo: " + $itemSelected.text());
 
-            var id_temp = 'id_' + attID + '.' + $itemSelected.val();
+            var id_temp = 'id_' + attID + '_' + $itemSelected.val();
 
             var existe = false;
 
@@ -229,51 +234,28 @@
             });
 
             if (!existe) {
-                var li = $('<li>', {
-                    'class': 'media',
-                    id: "li_" + id_temp,
 
-                });
+                var placeHolder = i == 0 ? "Principal" : "";
 
-
-                var li_div = $('<div>', {
-                    'class': 'media-body',
-                    text: $itemSelected.text()
-                })
-
-                var li_div_input = $('<input />', {
-                    type: 'hidden',
-                    id: id_temp,
-                    value: $itemSelected.val()
-                })
-
-                var li_span = $('<span>', {
-                    id: 'quitar_' + id_temp,
-                    'class': 'btn btn-xs btn-danger media-right',
-                    'data-toggle': 'tooltip',
-                    title: "Quitar valor"
-                });
-
-                var li_span_span = $('<span>', {
-                    'class': 'fa fa-times'
-                });
+                var textAppend = '' +
+                    '<li class="media" id="li_' + id_temp + '">' +
+                    '   <div class="media-body">' +
+                    '       <input type="hidden" id="' + id_temp + '" name="' + id_temp + '" value="' + $itemSelected.val() + '" />' +
+                    '       <div class="form-group">' +
+                    '           <div class="col-md-2 col-sm-2 col-xs-3">' +
+                    '               <input type="text" id="' + id_temp + '_prefijo" name="' + id_temp + '_prefijo" value="' + placeHolder + '"  placeholder="Prefijo" class="form-control input-sm" />' +
+                    '           </div>' +
+                    '           <label class="control-label" for="' + id_temp + '_prefijo">' + $itemSelected.text() + '</label>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '   <span id="quitar_' + id_temp + '" class="btn btn-xs btn-danger media-right" data-toggle="tooltip" title="Quitar valor"><span class="fa fa-times"></span></span>' +
+                    '</li>';
 
 
-                li_div.append(li_div_input);
+                ul.append(textAppend);
 
-                li.append(li_div);
-
-                li_span.append(li_span_span);
-
-                li.append(li_span);
-
-
-                ul.append(li);
-
-
-
-                li_span.addClass("quitarLiListaAutor_" + attID);
-                li_span.tooltip();
+                $('#quitar_' + id_temp).addClass("quitarLiListaAutor_" + attID);
+                $('#quitar_' + id_temp).tooltip();
             }
 
 
@@ -318,13 +300,12 @@
     });
 
     $(document.body).on("click", '.quitarLiListaAutor_' + '@AtributoID', function (e) {
-        event.preventDefault();
 
         var attID = '@AtributoID';
         var ul = $('#listaValores_' + attID);
         var $inputSelect = $('#id_' + attID);
 
-        $(this).parent().remove()
+        $(this).parent().remove();
 
         if (ul.html() == "") {
             $inputSelect.attr('required', true);

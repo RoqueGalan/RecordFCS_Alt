@@ -112,17 +112,20 @@
                 <div class="pull-right">
                     @if (item.EsLista)
                     {
-
-                        if (item.TablaSQL == "ListaValor")
+                        switch (item.TablaSQL)
                         {
-                            @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Configurar " + item.Nombre, "Detalles", "TipoAtributo", routeValues: new { id = item.TipoAtributoID }, htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
+                            case "ListaValor":
+                                @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Configurar " + item.Nombre, "Detalles", "TipoAtributo", routeValues: new { id = item.TipoAtributoID }, htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
+                                break;
+                            case "ImagenPieza":
+                                break;
+                            default:
+                            @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Configurar " + item.Nombre, "Index", item.TablaSQL, null, htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
+                                break;
                         }
-                        else
-                        {
-                            @Html.NoEncodeActionLink("<span class='fa fa-gear'></span>", "Configurar " + item.Nombre, "Index", item.TablaSQL, null , htmlAttributes: new { data_toggle = "tooltip", @class = "btn btn-primary btn-xs" })
-                        }
-                        
                     }
+
+
                     @Html.NoEncodeActionLink("<span class='fa fa-pencil'></span>", "Editar " + item.Nombre, "Editar", "TipoAtributo", routeValues: new { id = item.TipoAtributoID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-default btn-xs openModal_TipoAtributo" })
                     @Html.NoEncodeActionLink("<span class='fa fa-trash'></span>", "Eliminar " + item.Nombre, "Eliminar", "TipoAtributo", routeValues: new { id = item.TipoAtributoID }, htmlAttributes: new { data_modal = "", data_toggle = "tooltip", @class = "btn btn-danger btn-xs openModal_TipoAtributo" })
                 </div>
